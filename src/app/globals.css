@@ -3,25 +3,80 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+    .scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #282828 transparent;
+    }
+
+    .scrollbar::-webkit-scrollbar {
+        @apply w-[9px] h-[7.5px];
+    }
+
+    .scrollbar-main::-webkit-scrollbar {
+        @apply w-[6px] h-[7.5px];
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+        @apply border-[2px] border-solid border-transparent bg-[#1b1e28]   bg-clip-content;
+    }
+
+    .scrollbar-main::-webkit-scrollbar-thumb {
+        @apply border-[2px] border-solid border-transparent bg-slate-100  bg-clip-content;
+    }
+
+    .scrollbar::-webkit-scrollbar-track,
+    .scrollbar-main::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    @font-face {
+        font-family: "Stalanist";
+        src: url("../../public//fonts//StalinistOne-Regular.ttf") format("truetype");
+        font-weight: 400;
+    }
+
+    @font-face {
+        font-family: "Telex";
+        src: url("../../public//fonts//Telex-Regular.ttf") format("truetype");
+        font-weight: 400;
+    }
+
+    .drake::after {
+        content: "";
+        background-color: black;
+        opacity: 0.1; /* Cambia este valor según la opacidad deseada (0.0 a 1.0) */
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+    }
+
+    .drake::before {
+        content: "";
+        background-image: url("../../public/imgs/drake.svg");
+        background-position: center left;
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.7; /* Cambia este valor según la opacidad deseada (0.0 a 1.0) */
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Asegúrate de que esté detrás del contenido */
+    }
 }
