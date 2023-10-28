@@ -14,7 +14,7 @@ export default function User({ session }: { session: Session | undefined }) {
     const addDocentes = pathname === "/docentes/agregar";
     return (
         <div
-            className={cn("w-full relative grid place-content-end z-50 h-[40px] gap-x-2 px-3", { "bg-main": addDocentes })}
+            className={cn("w-full relative grid place-content-end z-50 h-[40px] gap-x-2 px-3", { "bg-[rgb(47,56,97)]": addDocentes })}
             onMouseLeave={() => setShowUserConfig(false)}
         >
             {!session ? (

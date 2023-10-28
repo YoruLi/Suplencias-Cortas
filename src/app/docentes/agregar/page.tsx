@@ -18,7 +18,7 @@ const STEPS = [
 ];
 export default function page() {
     return (
-        <div className=" w-full lg:h-full h-[calc(100dvh+40px)] px-8 bg-main text-white mx-auto ">
+        <div className=" w-full lg:h-full h-[calc(100dvh+40px)] px-8 bg-[rgb(47,56,97)] text-white mx-auto ">
             <div className="py-6">
                 <h2 className="text-2xl">Agregar docente</h2>
                 <span className="text-sm font-thin font-sans">Sigue los 3 pasos para agregar un nuevo docente</span>
@@ -29,7 +29,7 @@ export default function page() {
                     <ul className="lg:space-y-8 space-y-4 relative ">
                         {STEPS.map(step => {
                             return (
-                                <li className="flex gap-3 place-items-center text-center mx-auto relative bg-main z-40 ">
+                                <li className="flex gap-3 place-items-center text-center mx-auto relative bg-[rgb(47,56,97)] z-40 ">
                                     <span className="capitalize font-normal lg:text-sm text-base font-sans w-full">{step.title}</span>
                                     <div className="relative before:h-full before:w-[1px] before:bg-white/20 before:absolute before:top-full  ">
                                         <Icon {...step.icon} className="opacity-50 w-9 h-9 rounded-full " />
@@ -38,7 +38,7 @@ export default function page() {
                             );
                         })}
 
-                        <li className="flex gap-3 place-items-center text-center mx-auto relative  bg-main z-40 ">
+                        <li className="flex gap-3 place-items-center text-center mx-auto relative  bg-[rgb(47,56,97)] z-40 ">
                             <span className="capitalize font-normal lg:text-sm text-base font-sans w-full">Confirmar</span>
                             <div className="relative">
                                 <Icon {...svgs.check} className="opacity-50 w-9 h-9" />
@@ -59,7 +59,7 @@ export default function page() {
                                 placeholder="nombre"
                                 className="w-full p-3 text-sm appearance-none  caret-white text-white outline-none border-slate-300 bg-transparent border-[0.2px] rounded-md border-opacity-50 focus:border-[#25CC87]  placeholder-gray-300 placeholder-opacity-0 transition-transform duration-200"
                             />
-                            <span className="pointer-events-none text-sm text-slate-400  bg-main absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
+                            <span className="pointer-events-none text-sm text-slate-400  bg-[rgb(47,56,97)] absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
                                 Nombre
                             </span>
                         </div>
@@ -71,7 +71,7 @@ export default function page() {
                                 placeholder="apellido"
                                 className="w-full p-3 text-sm appearance-none  caret-white text-white outline-none border-slate-300 bg-transparent border-[0.2px] rounded-md border-opacity-50 focus:border-[#25CC87]  placeholder-gray-300 placeholder-opacity-0 transition-transform duration-200"
                             />
-                            <span className="pointer-events-none text-sm text-slate-400  bg-main absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
+                            <span className="pointer-events-none text-sm text-slate-400  bg-[rgb(47,56,97)] absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
                                 Apellido
                             </span>
                         </div>
