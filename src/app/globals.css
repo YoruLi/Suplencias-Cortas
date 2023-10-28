@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 
 :root {
     --foreground-rgb: 0, 0, 0;
@@ -92,4 +93,8 @@
     .form {
         grid-area: form;
     }
+
+    .custom-polygon {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 0% 90%);
+      }
 }
