@@ -3,11 +3,15 @@ export const dashBoardIcon: Svg = {
     viewBox: "0 0 24 24",
 };
 
-export const docentesIcon: Svg = {
+export const docenteIcon: Svg = {
     path: "M7.5 6.5C7.5 8.981 9.519 11 12 11C14.481 11 16.5 8.981 16.5 6.5C16.5 4.019 14.481 2 12 2C9.519 2 7.5 4.019 7.5 6.5ZM20 21H21V20C21 16.141 17.859 13 14 13H10C6.14 13 3 16.141 3 20V21H20Z",
     viewBox: "0 0 24 24",
 };
 
+export const userIcon: Svg = {
+    path: "M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z",
+    viewBox: "0 0 24 24",
+};
 export const leftArrow: Svg = {
     path: "M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z",
     viewBox: "0 0 24 24",
@@ -28,11 +32,30 @@ export const more: Svg = {
     viewBox: "0 0 24 24",
 };
 
+export const emailIcon = {
+    path: "M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.7-8 5.334L4 8.7V6.297l8 5.333 8-5.333V8.7z",
+    viewBox: "0 0 24 24",
+};
+
+export const userDetail = {
+    path: "M15 11h7v2h-7zm1 4h6v2h-6zm-2-8h8v2h-8zM4 19h10v-1c0-2.757-2.243-5-5-5H7c-2.757 0-5 2.243-5 5v1h2zm4-7c1.995 0 3.5-1.505 3.5-3.5S9.995 5 8 5 4.5 6.505 4.5 8.5 6.005 12 8 12z",
+    viewBox: "0 0 24 24",
+};
+
+export const check = {
+    path: "m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z",
+    viewBox: "0 0 24 24",
+};
+
 export default {
     dashBoardIcon,
     leftArrow,
     backArrow,
-    docentesIcon,
+    docenteIcon,
+    userIcon,
     docIcon,
+    emailIcon,
+    userDetail,
+    check,
     more,
 };
