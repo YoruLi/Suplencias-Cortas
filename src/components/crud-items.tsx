@@ -18,9 +18,9 @@ export default function CrudItems({ toggleShowMore, selectedItem }: { toggleShow
                     <Link
                         prefetch={false}
                         href={item.href}
-                        className={`flex px-6 py-4 lg:py-2 [&>svg]:fill-main hover:bg-[#d0cece] items-center 
+                        className={`flex px-6 w-full  lg:[&>svg]:mx-0 [&>svg]:mx-auto  py-4 lg:py-2 [&>svg]:fill-main hover:bg-[#d4d9ee] items-center 
                     ${item.k === "view-more" ? " order-2 md:hidden" : ""}
-                    ${selectedItem(item.href) ? "bg-[#d0cece] text-main" : ""}
+                    ${selectedItem(item.href) ? "bg-[#d4d9ee] lg:text-main" : ""}
                     
                     `}
                     >

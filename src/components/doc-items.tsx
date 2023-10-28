@@ -14,8 +14,8 @@ export default function DocItems({ selectedItem }: { selectedItem: (href: string
                 <Link
                     prefetch={false}
                     href={item.href}
-                    className={`flex gap-2 px-4 py-4 lg:py-2 lg:px-6 [&>svg]:fill-main order-3 items-center hover:bg-[#d0cece] ${
-                        selectedItem(item.href) ? "bg-[#d0cece] text-main" : ""
+                    className={`flex gap-2 px-4 py-4 lg:py-2 lg:px-6 [&>svg]:fill-main order-3 items-center hover:bg-[#d4d9ee]  ${
+                        selectedItem(item.href) ? "bg-[#d4d9ee]  text-main" : ""
                     } `}
                 >
                     <Icon path={item.icon.path} viewBox={item.icon.viewBox} />
