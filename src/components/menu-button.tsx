@@ -34,7 +34,7 @@ export default function MenuButton(props: MenuButtonProps) {
                     `}
         >
             <Icon {...props.icon} />
-            <span className="hidden lg:block text-sm">{props.title}</span>
+            <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{props.title}</span>
         </Tag>
     );
 }
