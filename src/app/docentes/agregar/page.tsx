@@ -32,7 +32,7 @@ export default function page() {
                                 <li className="flex gap-3 place-items-center text-center mx-auto relative bg-main z-40 ">
                                     <span className="capitalize font-normal lg:text-sm text-base font-sans w-full">{step.title}</span>
                                     <div className="relative before:h-full before:w-[1px] before:bg-white/20 before:absolute before:top-full  ">
-                                        <Icon {...step.icon} className="opacity-50 w-10 h-10 rounded-full " />
+                                        <Icon {...step.icon} className="opacity-50 w-9 h-9 rounded-full " />
                                     </div>
                                 </li>
                             );
@@ -41,7 +41,7 @@ export default function page() {
                         <li className="flex gap-3 place-items-center text-center mx-auto relative  bg-main z-40 ">
                             <span className="capitalize font-normal lg:text-sm text-base font-sans w-full">Confirmar</span>
                             <div className="relative">
-                                <Icon {...svgs.check} className="opacity-50 w-10 h-10" />
+                                <Icon {...svgs.check} className="opacity-50 w-9 h-9" />
                             </div>
                         </li>
                     </ul>
