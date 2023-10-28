@@ -60,7 +60,7 @@ export default async function loginPage() {
                                     placeholder="Usuario"
                                     className="w-full p-3 text-sm appearance-none  outline-none border-slate-500 bg-transparent  border-[0.2px] rounded-md border-opacity-50 placeholder-gray-300 placeholder-opacity-0 transition-transform duration-200"
                                 />
-                                <span className="pointer-events-none text-sm text-slate-500  absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
+                                <span className="pointer-events-none text-sm text-slate-500  bg-white absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
                                     Nombre de usuario
                                 </span>
                             </div>
@@ -70,9 +70,9 @@ export default async function loginPage() {
                                     type="password"
                                     name="password"
                                     placeholder="password"
-                                    className="w-full p-3 text-sm appearance-none   outline-none border-slate-500 bg-transparent  border-[0.2px] rounded-md border-opacity-50 placeholder-gray-300 placeholder-opacity-0 transition-transform duration-200"
+                                    className="w-full p-3 text-sm appearance-none  outline-none border-slate-500 bg-transparent  border-[0.2px] rounded-md border-opacity-50 placeholder-gray-300 placeholder-opacity-0 transition-transform duration-200"
                                 />
-                                <span className="pointer-events-none text-sm text-slate-500   absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
+                                <span className="pointer-events-none text-sm text-slate-500  bg-white  absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
                                     Contraseña
                                 </span>
                             </div>
