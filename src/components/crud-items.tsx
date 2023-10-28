@@ -1,14 +1,14 @@
-import { docentesIcon, backArrow } from "@/data/svgs";
+import { docenteIcon, backArrow } from "@/data/svgs";
 import Link from "next/link";
 import React from "react";
 import Icon from "./icon";
 
 export default function CrudItems({ toggleShowMore, selectedItem }: { toggleShowMore: () => void; selectedItem: (href: string) => boolean }) {
     const CRUD_ITEMS = [
-        { icon: docentesIcon, title: "Docentes", href: "/docentes", k: "docentes" },
-        { icon: docentesIcon, title: "Cursos", href: "/cursos", k: "cursos" },
-        { icon: docentesIcon, title: "Materias", href: "/materias", k: "materias" },
-        { icon: docentesIcon, title: "Cargos", href: "/cargos", k: "cargos" },
+        { icon: docenteIcon, title: "Docentes", href: "/docentes", k: "docentes" },
+        { icon: docenteIcon, title: "Cursos", href: "/cursos", k: "cursos" },
+        { icon: docenteIcon, title: "Materias", href: "/materias", k: "materias" },
+        { icon: docenteIcon, title: "Cargos", href: "/cargos", k: "cargos" },
     ];
 
     return (
@@ -25,7 +25,7 @@ export default function CrudItems({ toggleShowMore, selectedItem }: { toggleShow
                     `}
                     >
                         <Icon {...item.icon} />
-                        <span className="hidden lg:block text-sm">{item.title}</span>
+                        <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.title}</span>
                     </Link>
                 </>
             ))}

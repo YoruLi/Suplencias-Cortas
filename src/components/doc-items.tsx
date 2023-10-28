@@ -19,7 +19,7 @@ export default function DocItems({ selectedItem }: { selectedItem: (href: string
                     } `}
                 >
                     <Icon path={item.icon.path} viewBox={item.icon.viewBox} />
-                    <span className="hidden lg:block text-sm">{item.title}</span>
+                    <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.title}</span>
                 </Link>
             ))}
         </>

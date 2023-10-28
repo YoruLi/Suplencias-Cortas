@@ -40,10 +40,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en">
             <body className={`${telex.className}`}>
-                <div className="flex flex-col relative lg:flex-row scrollbar-main [overflow-y:overlay] overflow-hidden w-full">
+                <div className="flex flex-col relative lg:flex-row md:scrollbar-main [overflow-y:overlay] overflow-hidden w-full">
                     <Sidebar session={session} />
-                    {!session ? <AuthSessionButton /> : <User session={session} />}
-                    <main className="w-full min-h-screen">{children}</main>
+                    <main className="w-screen lg:h-[calc(100dvh-40px)] h-[calc(100dvh-56px)] relative">
+                        {<User session={session} />}
+                        {children}
+                    </main>
                 </div>
             </body>
         </html>
