@@ -1,6 +1,6 @@
-export type User = {
+type User = {
     id: string;
-    username: `${string}-${string}-${string}-${string}-${string}`;
+    username: UUID;
     password: string;
-    created_at: string | Date;
+    createdAt: string | Date;
 };

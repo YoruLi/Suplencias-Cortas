@@ -8,7 +8,7 @@ import DocItems from "./doc-items";
 import CrudItems from "./crud-items";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar() {
+export default function Sidebar({ session }: { session: Session | undefined }) {
     const [showMore, setShowMore] = useState(false);
     const handleShowMore = () => setShowMore(prevState => !prevState);
     const pathname = usePathname();
@@ -22,7 +22,7 @@ export default function Sidebar() {
                     SSDSP
                 </h1>
                 <span className="text-[#636363] text-sm font-telex hidden lg:block px-6 ">Admin</span>
-                <AdminItems toggleShowMore={handleShowMore} selectedItem={selectedItem} />
+                <AdminItems toggleShowMore={handleShowMore} selectedItem={selectedItem} session={session} />
 
                 <div className={` absolute bottom-0 h-full bg-white  w-full  lg:static lg:flex lg:h-auto lg:flex-col lg:bg-transparent ${showMore ? "flex" : "hidden"}`}>
                     <CrudItems toggleShowMore={handleShowMore} selectedItem={selectedItem} />

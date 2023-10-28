@@ -26,9 +26,16 @@ export default async function loginPage() {
 
         const json = await res.json();
 
+        const authToken = {
+            token: json.token,
+            user: {
+                username,
+            },
+        };
+
         if (json.status === 200) {
             if (!cookie.get("auth")) {
-                cookie.set("auth", json.token);
+                cookie.set("auth", JSON.stringify(authToken));
             }
 
             return redirect("/dashboard");

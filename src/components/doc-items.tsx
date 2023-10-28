@@ -12,6 +12,7 @@ export default function DocItems({ selectedItem }: { selectedItem: (href: string
         <>
             {DOC_ITEMS.map(item => (
                 <Link
+                    prefetch={false}
                     href={item.href}
                     className={`flex gap-2 px-4 py-4 lg:py-2 lg:px-6 [&>svg]:fill-main order-3 items-center hover:bg-[#d0cece] ${
                         selectedItem(item.href) ? "bg-[#d0cece] text-main" : ""

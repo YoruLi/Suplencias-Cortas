@@ -79,4 +79,17 @@
         height: 100%;
         z-index: -1; /* Asegúrate de que esté detrás del contenido */
     }
+
+    .grid-add-docente {
+        display: grid;
+        grid-template-areas: "step form ";
+    }
+
+    .step {
+        grid-area: step;
+    }
+
+    .form {
+        grid-area: form;
+    }
 }

@@ -20,7 +20,7 @@ interface TagProps extends Omit<MenuButtonProps, "k"> {}
 
 export default function MenuButton(props: MenuButtonProps) {
     const Tag = (tagProps: TagProps) => {
-        return tagProps.href ? <Link {...tagProps} href={tagProps.href} /> : <button {...tagProps} />;
+        return tagProps.href ? <Link {...tagProps} href={tagProps.href} prefetch={false} /> : <button {...tagProps} />;
     };
 
     return (

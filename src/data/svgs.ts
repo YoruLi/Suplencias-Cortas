@@ -1,8 +1,3 @@
-type Svg = {
-    path: string;
-    viewBox: string;
-};
-
 export const dashBoardIcon: Svg = {
     path: "M5.3335 5.33334H10.3335V12H5.3335V5.33334Z M5.3335 15.3333H10.3335V18.6667H5.3335V15.3333Z M13.6665 12H18.6665V18.6667H13.6665V12Z M13.6665 5.33334H18.6665V8.66668H13.6665V5.33334Z",
     viewBox: "0 0 24 24",

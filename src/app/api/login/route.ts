@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import { NextApiResponse } from "next";
-import { User } from "@/../types/schemas";
 
 export async function GET(req: Request) {
     const result = await conn.query("SELECT * FROM usuarios");
