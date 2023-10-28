@@ -16,7 +16,7 @@ export default function Sidebar({ session }: { session: Session | undefined }) {
     const selectedItem = (path: string) => pathname.includes(path);
 
     return (
-        <aside className="lg:w-[235.5px] z-[51] bg-white border-t-2 lg:border-r-2 [overflow-y:overlay] overflow-hidden scrollbar-main fixed bottom-0 w-full lg:sticky lg:top-0 lg:h-[100dvh] flex flex-col">
+        <aside className="lg:w-[250px] z-[51] bg-white border-t-2 lg:border-r-2 [overflow-y:overlay] overflow-hidden scrollbar-main fixed bottom-0 w-full lg:sticky lg:top-0 lg:h-[100dvh] flex flex-col">
             <nav className="flex flex-row lg:flex-col w-full justify-between [&>div>ul>a>span]:text-sm">
                 <h1 className="text-main font-bold order-1 lg:order-none px-6 font-stalinist text-center [font-size:_clamp(15px,1.5vw,2vw)] lg:py-4 my-auto py-0 block">
                     SSDSP
