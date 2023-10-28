@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import "./globals.css";
 import localFont from "next/font/local";
 
 import Sidebar from "@/components/sidebar";
 import AuthSessionButton from "@/components/auth-session.-button";
-import { cookies } from "next/headers";
+
 import User from "@/components/user";
+import { getSession } from "../data/getSession";
 
 export const metadata: Metadata = {
     title: "Sistema De Suplencias Cortas",
@@ -34,17 +35,15 @@ const telex = localFont({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const cookie = cookies().get("auth");
-    const session = cookie?.value;
+    const session = getSession();
 
     return (
         <html lang="en">
-            <body className={`${telex.className} h-[100dvh] w-full `}>
-                <div className="flex flex-col lg:flex-row scrollbar-main [overflow-y:overlay] overflow-hidden w-full">
-                    <Sidebar />
-
+            <body className={`${telex.className}`}>
+                <div className="flex flex-col relative lg:flex-row scrollbar-main [overflow-y:overlay] overflow-hidden w-full">
+                    <Sidebar session={session} />
                     {!session ? <AuthSessionButton /> : <User session={session} />}
-                    <main>{children}</main>
+                    <main className="w-full min-h-screen">{children}</main>
                 </div>
             </body>
         </html>

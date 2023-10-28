@@ -1,18 +1,37 @@
 import React from "react";
-import { dashBoardIcon, docentesIcon, more } from "@/data/svgs";
+import { dashBoardIcon, more } from "@/data/svgs";
 import MenuButton from "./menu-button";
 
-const ADMIN_ITEMS = [
-    {
-        k: "dashboard",
-        title: "Dashboard",
-        href: "/dashboard",
-        icon: dashBoardIcon,
-    },
-    { icon: more, title: "Mostrar mas", k: "view-more" },
-];
-
-export default function AdminItems({ toggleShowMore, selectedItem }: { toggleShowMore: () => void; selectedItem: (href: string) => boolean }) {
+export default function AdminItems({
+    toggleShowMore,
+    selectedItem,
+    session,
+}: {
+    toggleShowMore: () => void;
+    selectedItem: (href: string) => boolean;
+    session: Session | undefined;
+}) {
+    const ADMIN_ITEMS = session?.user?.username
+        ? [
+              {
+                  k: "dashboard",
+                  title: "Dashboard",
+                  href: "/dashboard",
+                  icon: dashBoardIcon,
+              },
+              {
+                  k: "view-more",
+                  title: "Mostrar mas",
+                  icon: more,
+              },
+          ]
+        : [
+              {
+                  k: "view-more",
+                  title: "Mostrar mas",
+                  icon: more,
+              },
+          ];
     return (
         <>
             {ADMIN_ITEMS.map(item => {
