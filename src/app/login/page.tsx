@@ -37,7 +37,6 @@ export default async function loginPage() {
             if (!cookie.get("auth")) {
                 cookie.set("auth", JSON.stringify(authToken));
             }
-
             return redirect("/dashboard");
         }
     };

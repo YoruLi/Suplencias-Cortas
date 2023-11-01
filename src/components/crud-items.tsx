@@ -1,10 +1,11 @@
-import { docenteIcon, backArrow } from "@/data/svgs";
+import { docenteIcon, backArrow, dashBoardIcon } from "@/data/svgs";
 import Link from "next/link";
 import React from "react";
 import Icon from "./icon";
 
 export default function CrudItems({ toggleShowMore, selectedItem }: { toggleShowMore: () => void; selectedItem: (href: string) => boolean }) {
     const CRUD_ITEMS = [
+        { icon: dashBoardIcon, title: "Dashboard", href: "/dashboard", k: "dashboard" },
         { icon: docenteIcon, title: "Docentes", href: "/docentes", k: "docentes" },
         { icon: docenteIcon, title: "Cursos", href: "/cursos", k: "cursos" },
         { icon: docenteIcon, title: "Materias", href: "/materias", k: "materias" },
@@ -18,9 +19,9 @@ export default function CrudItems({ toggleShowMore, selectedItem }: { toggleShow
                     <Link
                         prefetch={false}
                         href={item.href}
-                        className={`flex px-6 w-full  lg:[&>svg]:mx-0 [&>svg]:mx-auto  py-4 lg:py-2 [&>svg]:fill-main hover:bg-[#d4d9ee] items-center 
+                        className={`flex px-6 w-full  lg:[&>svg]:mx-0 [&>svg]:mx-auto  py-4 lg:py-2 [&>svg]:fill-main hover:bg-[#f3f3f3] items-center 
                     ${item.k === "view-more" ? " order-2 md:hidden" : ""}
-                    ${selectedItem(item.href) ? "bg-[#d4d9ee] lg:text-main" : ""}
+                    ${selectedItem(item.href) ? "bg-[#f3f3f3] lg:text-main" : ""}
                     
                     `}
                     >

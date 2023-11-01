@@ -1,21 +1,20 @@
 import { conn } from "@/libs/mysql/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import { NextApiResponse } from "next";
 
-export async function GET(req: Request) {
-    const result = await conn.query("SELECT * FROM usuarios");
+export async function GET(req: NextRequest) {
+    const { cookies } = req;
 
+    const result = await conn.query("SELECT * FROM usuarios");
     return NextResponse.json(result);
 }
 
 export async function POST(req: Request, res: NextApiResponse) {
     const secret = "123";
     const data = await req.json();
-
-    const r = NextResponse.next();
 
     const { username, password } = data;
 
@@ -36,17 +35,20 @@ export async function POST(req: Request, res: NextApiResponse) {
                 status: 404,
             });
         } else {
-            const userObject = { username, password: undefined };
+            const userObject = { username: username };
             const token = jwt.sign(userObject, secret, {
                 expiresIn: "1d",
             });
 
-            cookie.serialize("auth", token, {
+            const serialized = cookie.serialize("AuthJWT", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV !== "development",
                 sameSite: "strict",
-                maxAge: 60 * 30,
+                maxAge: 60 * 60 * 24 * 30,
+                path: "/",
             });
+
+            NextResponse.next().headers.set("Set-Cookie", serialized);
 
             return NextResponse.json({ message: "Bienvenido", status: 200, token });
         }

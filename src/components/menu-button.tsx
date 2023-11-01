@@ -26,11 +26,11 @@ export default function MenuButton(props: MenuButtonProps) {
     return (
         <Tag
             {...props}
-            className={`flex  px-4 py-4 lg:py-2 hover:bg-[#d4d9ee]  [&>svg]:fill-main lg:px-6 items-center  ${
-                props.href && props.selectedItem(props.href) ? "bg-[#d4d9ee]  text-main " : ""
+            className={`flex w-full lg:[&>svg]:mx-0 [&>svg]:mx-auto  px-4 py-4 lg:py-2 hover:bg-[#f3f3f3]  [&>svg]:fill-main lg:px-6 items-center  ${
+                props.href && props.selectedItem(props.href) ? "bg-[#f3f3f3]  text-main " : ""
             }
-                    ${props.k === "view-more" ? "lg:hidden" : ""}
-                    
+          
+                    ${props.k === "view-more" ? "lg:hidden" : ""}   
                     `}
         >
             <Icon {...props.icon} />
