@@ -4,6 +4,8 @@ import { cn } from "@/utils/cn";
 import React, { lazy, useState } from "react";
 import Icon from "./icon";
 
+import { Separator } from "./ui/separator";
+
 const DinamycFormUserDetail = lazy(() => import("@/components/form-user-detail"));
 const DinamycFormUserPersonalDetail = lazy(() => import("@/components/form-user-personal-detail"));
 const DinamycFormUserMoreDetail = lazy(() => import("@/components/form-user-more-detail"));
@@ -69,35 +71,31 @@ export default function AddTeacher() {
     };
 
     return (
-        <>
-            <div className="py-6">
+        <div className="flex flex-col min-h-full text-white bg-transparent w-full  py-2">
+            <div className="pb-4">
                 <h2 className="text-2xl text-black">Agregar docente</h2>
                 <span className="text-sm font-thin font-sans text-slate-600">Sigue los 4 pasos para agregar un nuevo docente</span>
             </div>
-
-            <div className="grid-add-docente min-h-screen flex flex-col lg:flex-row bg-transparent border-t  border-slate-400  relative">
-                <div className="flex flex-col items-center  gap-3 lg:border-r lg:border-b-0 border-t-0 border-b px-2 pt-8 border-slate-400 step flex-[0.6]">
-                    <ul className="lg:space-y-8 space-y-4 relative  ">
+            <Separator orientation="horizontal" />
+            <div className="grid place-content-center h-full w-full">
+                <div className=" mx-auto  bg-transparent relative">
+                    <ul className="relative flex gap-4 mt-4 ">
                         {STEPS.map((step, index) => {
                             return (
-                                <li className="flex gap-3 place-items-center text-center mx-auto relative bg-current z-40 ">
+                                <li className="flex gap-1 place-items-center text-center relative bg-current z-40 ">
                                     <span
-                                        className={cn("capitalize font-normal lg:text-sm text-black  text-base font-sans w-full", {
-                                            "text-main font-bold": form.step === index,
+                                        className={cn("capitalize font-normal  text-slate-400  text-xs font-sans w-full hidden lg:block ", {
+                                            "text-[#0F172A]  font-bold ": form.step === index,
                                         })}
                                     >
                                         {step.title}
                                     </span>
-                                    <div
-                                        className={cn("relative ", {
-                                            "before:h-full before:w-[1px] before:bg-slate-400 before:absolute before:top-full ": index !== STEPS.length - 1,
-                                            "before:bg-main before:w-[1.5px]": form.step === index,
-                                        })}
-                                    >
+
+                                    <div className={cn("relative")}>
                                         <Icon
                                             {...step.icon}
-                                            className={cn("opacity-50 w-9 h-9 rounded-full ", {
-                                                "fill-main opacity-100": form.step === index,
+                                            className={cn("opacity-50 w-9 h-9 rounded-full fill-slate-400 ", {
+                                                "fill-[#0F172A]  opacity-100": form.step === index,
                                             })}
                                         />
                                     </div>
@@ -106,27 +104,32 @@ export default function AddTeacher() {
                         })}
                     </ul>
                 </div>
-                <div className=" px-4 lg:pt-20 pt-10 flex-[2]">
-                    <div className="text-center">
-                        <legend className="text-center text-sm text-slate-600">
-                            Paso{" "}
-                            <span>
-                                {form.step + 1}/{form.totalSteps}
-                            </span>
-                        </legend>
-                        <h4 className="text-2xl text-black ">Completar los datos y continuar para avanzar</h4>
-                    </div>
-                    {form.step === 0 ? (
-                        <DinamycFormUserDetail handleChange={handleChangeValue} values={form} nextStep={nextStep} />
-                    ) : form.step === 1 ? (
-                        <DinamycFormUserPersonalDetail handleChange={handleChangeValue} values={form} nextStep={nextStep} prevStep={prevStep} />
-                    ) : form.step === 2 ? (
-                        <DinamycFormUserMoreDetail handleChange={handleChangeValue} values={form} nextStep={nextStep} prevStep={prevStep} />
-                    ) : (
-                        <DinamycConfirm values={form} prevStep={prevStep} />
-                    )}
+                <div className=" h-full relative">
+                    <form
+                        action=""
+                        className="max-w-2xl mx-auto w-full h-full  flex flex-col gap-10 form mt-12 text-main [&>div>input]:text-black  [&>*]:border-main [&>div>span]:bg-white"
+                    >
+                        <div className="text-center h-full">
+                            <legend className="text-center text-sm text-slate-600">
+                                Paso{" "}
+                                <span>
+                                    {form.step + 1}/{form.totalSteps}
+                                </span>
+                            </legend>
+                            <h4 className="text-2xl text-black ">Completar los datos y continuar para avanzar</h4>
+                        </div>
+                        {form.step === 0 ? (
+                            <DinamycFormUserDetail handleChange={handleChangeValue} values={form} nextStep={nextStep} />
+                        ) : form.step === 1 ? (
+                            <DinamycFormUserPersonalDetail handleChange={handleChangeValue} values={form} nextStep={nextStep} prevStep={prevStep} />
+                        ) : form.step === 2 ? (
+                            <DinamycFormUserMoreDetail handleChange={handleChangeValue} values={form} nextStep={nextStep} prevStep={prevStep} />
+                        ) : (
+                            <DinamycConfirm values={form} prevStep={prevStep} />
+                        )}
+                    </form>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

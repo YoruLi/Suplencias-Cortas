@@ -1,5 +1,6 @@
 import Input from "@/components/Input";
 import React from "react";
+import { Button } from "./ui/button";
 
 type FormUserProps = {
     handleChange: (input: string) => (event: React.ChangeEvent<HTMLInputElement>) => void; // Ajuste en la firma de handleChange
@@ -11,17 +12,15 @@ type FormUserProps = {
 export default function FormUserMoreDetail({ handleChange, values, nextStep, prevStep }: FormUserProps) {
     const { score } = values;
     return (
-        <form action="" className="flex flex-col gap-10 form mt-16 text-main [&>div>input]:text-black  [&>*]:border-main [&>div>span]:bg-white ">
+        <>
             <Input defaultValue={score} onChange={handleChange("score")} name="score" placeholder="puntaje" />
 
             <div className="flex gap-3 relative self-end place-self-end">
-                <button className=" bg-[#b1443c] hover:bg-[#7a3b37] px-3 py-1.5 rounded-md text-white" onClick={prevStep}>
+                <Button className=" bg-[#b1443c] hover:bg-[#a25650]" onClick={prevStep}>
                     Volver atras
-                </button>
-                <button className=" bg-main hover:bg-[rgb(60,72,123)] px-3 py-1.5 rounded-md text-white" onClick={evt => nextStep(evt, { score })}>
-                    Continuar
-                </button>
+                </Button>
+                <Button onClick={evt => nextStep(evt, { score })}>Continuar</Button>
             </div>
-        </form>
+        </>
     );
 }

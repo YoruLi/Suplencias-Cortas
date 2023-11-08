@@ -6,7 +6,7 @@ type User = {
 };
 
 type Teacher = {
-    id: string;
+    idDocentes: string;
     nombreCompleto: string;
     email: string;
     tel: string;
@@ -16,7 +16,7 @@ type Teacher = {
 };
 
 type Cargo = {
-    id: string;
+    idCargos: string;
     docenteId: string;
     codigoMateria: string;
     cursoId: string;
@@ -25,6 +25,11 @@ type Cargo = {
     horario: string;
 };
 
+interface CargoResponse extends Cargo {
+    nombreMateria: string;
+    nombreDocente: string;
+    nombreCurso: string;
+}
 type Curso = {
     id: string;
     nombre: string;
@@ -38,3 +43,5 @@ type Materia = {
     año: string;
     planDeEstudioId: string;
 };
+
+type TeachersResponse = Teacher[] | { success: boolean; message: string };

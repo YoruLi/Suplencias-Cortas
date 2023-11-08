@@ -1,32 +1,52 @@
-import CoursesItem from "@/components/courses-item";
+import { getCursos } from "@/components/cursos/api/get-cursos";
+import { SheetDemo } from "@/components/sheet";
+import { Button } from "@/components/ui/button";
+
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 import React from "react";
 
-export default function page() {
-    return (
-        <div>
-            <h3 className="ml-5 text-3xl mt-4">Cursos</h3>
+export const revalidate = 0;
 
-            <div className="flex flex-col items-center gap-4">
-                <div className="flex gap-10 p-4 border border-black rounded-lg">
-                    <span>Todos</span>
-                    <span>Ciclo Básico</span>
-                    <span>Informática</span>
-                    <span>Química</span>
-                    <span>M.M.O</span>
-                </div>
-                <button className="w-18 p-2 bg-main text-white rounded-lg">AGREGAR CURSO</button>
-            </div>
-            <div className="flex flex-row flex-wrap w-98vw gap-4 mx-4 mt-10 items-center">
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
-                {<CoursesItem />}
+type Props = {
+    searchParams?: {
+        modalidad?: string;
+    };
+};
+
+export default async function page({ searchParams }: Props) {
+    const cursos = await getCursos(searchParams?.modalidad);
+    return (
+        <div className="w-full h-full flex gap-4 flex-col">
+            <h2 className="text-2xl font-telex tracking-widest py-4">Cursos</h2>
+
+            <Tabs defaultValue="cursos" className="flex flex-col items-center gap-4">
+                <TabsList>
+                    <TabsTrigger value="cursos" asChild>
+                        <Link href={"cursos"}>Todos</Link>
+                    </TabsTrigger>
+                    <TabsTrigger value="informatica" asChild>
+                        <Link href={"cursos?modalidad=informatica"}>Informática</Link>
+                    </TabsTrigger>
+
+                    <TabsTrigger value="quimica" asChild>
+                        <Link href={"cursos?modalidad=quimica"}>Quimica</Link>
+                    </TabsTrigger>
+
+                    <TabsTrigger value="construccion" asChild>
+                        <Link href={"cursos?modalidad=construccion"}>Consturccion</Link>
+                    </TabsTrigger>
+                </TabsList>
+            </Tabs>
+
+            <div className="grid grid-cols-courses  gap-3 w-full mx-auto ">
+                {cursos?.map(curso => (
+                    <div key={curso.id}>
+                        <SheetDemo cursoData={curso} />
+                    </div>
+                ))}
+
+                {cursos.length === 0 ? <pre className="mx-auto">No se encontraron cursos</pre> : null}
             </div>
         </div>
     );

@@ -11,9 +11,9 @@ export default async function page() {
         redirect("/login");
     }
     return (
-        <div className=" min-h-[calc(100dvh-56px-40px)] bg-transparent text-white mx-auto max-h-[calc(100dvh-56px-40px)]  ">
+        <>
             <AddTeacher />
-        </div>
+        </>
     );
 }
 

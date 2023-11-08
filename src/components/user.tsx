@@ -1,43 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { deleteSession } from "../../actions/deleteUser";
 import Icon from "./icon";
 import svgs from "@/data/svgs";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { cn } from "../utils/cn";
-
+import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 export default function User({ session }: { session: Session | undefined }) {
-    const [showUserConfig, setShowUserConfig] = useState(false);
-    const pathname = usePathname();
     const router = useRouter();
-    const addDocentes = pathname === "/docentes/agregar";
+
     return (
-        <div className={cn("w-full relative grid place-content-end z-50 h-[44px] gap-x-2 px-3 bg-transparent")} onMouseLeave={() => setShowUserConfig(false)}>
+        <div className={cn("w-full relative grid place-content-end p-2 z-50 bg-transparent")}>
             {!session ? (
-                <button onClick={() => router.push("/login")} className={cn("rounded-md relative py-1.5 px-2 bg-main text-white")}>
-                    Iniciar sesion
-                </button>
+                <Button onClick={() => router.push("/login")}>Iniciar sesion</Button>
             ) : (
                 <div className="flex items-center gap-2">
-                    <span className={`text-current`}>{session?.user?.username}</span>
-
-                    <button className=" relative" onClick={() => setShowUserConfig(prev => !prev)}>
-                        <Icon {...svgs.userIcon} className={cn("w-[40px] h-[40px]  hover:opacity-80")} />
-                    </button>
-
-                    {showUserConfig ? (
-                        <div
-                            className="bg-white border-slate-300 absolute inline-flex right-4 top-6 border py-1.5 px-2 hover:bg-[#d0cece] cursor-pointer "
-                            onClick={() => {
-                                deleteSession();
-                                router.push("/login");
-                                setShowUserConfig(false);
-                            }}
-                        >
-                            <span className="text-center text-sm font-medium ">Cerrar session</span>
-                        </div>
-                    ) : null}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger className="relative flex items-center gap-2 outline-none bg-[#e3e2e2] px-3 hover:bg-[#e0e0e0]  rounded">
+                            <Icon {...svgs.userIcon} className={cn("w-[34px] h-[34px]")} />
+                            <div>
+                                <span className="text-sm font-bold">{session?.user?.username}</span>
+                                <legend className="text-xs text-start">Admin</legend>
+                            </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Perfil</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => deleteSession()}>Cerrar sesion</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             )}
         </div>

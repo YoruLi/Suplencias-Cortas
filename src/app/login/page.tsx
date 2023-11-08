@@ -5,6 +5,9 @@ import GoBack from "@/components/go-back";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import Input from "@/components/Input";
+import SubmitButton from "@/components/submit-button";
+
 export default async function loginPage() {
     const host = headers().get("host");
     const handleLogin = async (data: FormData) => {
@@ -42,43 +45,24 @@ export default async function loginPage() {
     };
 
     return (
-        <div className="grid min-h-[100dvh] w-full border place-items-center fixed inset-0 z-[9999999] drake bg-white ">
-            <div className="w-full lg:h-[99%] h-full m-auto grid place-items-center max-w-lg relative border bg-white rounded">
+        <div className="grid min-h-[100dvh] w-full border place-items-center fixed inset-0 z-[9999999] bg-white ">
+            <div className="lg:w-full w-[90%] h-[40rem]  grid place-items-center max-w-lg relative border-2 border-slate-200  bg-white rounded-lg">
                 <GoBack />
                 <div className="max-w-md w-full text-center flex items-center flex-col">
                     <picture>
-                        <Image src={tecnicaLogo} width={300} height={300} alt="logo de la escuela tecnica n2 Rodolfo Walsh" />
+                        <Image src={tecnicaLogo} width={200} height={200} alt="logo de la escuela tecnica n2 Rodolfo Walsh" />
                     </picture>
                     <span className="text-slate-600 text-xl">Inicia sesion para continuar</span>
                     <section className="flex flex-col gap-4 p-4 w-full">
-                        <form action={handleLogin} className="flex flex-col items-center w-full gap-4">
-                            <div className="relative group  w-full ">
-                                <input
-                                    type="text"
-                                    name="username"
-                                    placeholder="Usuario"
-                                    className="w-full p-3 text-sm appearance-none  outline-none border-slate-500 bg-transparent  border-[0.2px] rounded-md border-opacity-50 placeholder-gray-300 placeholder-opacity-0 transition-transform duration-200"
-                                />
-                                <span className="pointer-events-none text-sm text-slate-500  bg-white absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
-                                    Nombre de usuario
-                                </span>
-                            </div>
+                        <form
+                            action={handleLogin}
+                            className="mx-auto w-full h-full rounded-md flex flex-col gap-3 form  text-main [&>div>input]:text-black  [&>*]:border-main [&>div>span]:bg-white"
+                        >
+                            <Input name="username" placeholder="Nombre de usuario" />
 
-                            <div className="relative group w-full">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    placeholder="password"
-                                    className="w-full p-3 text-sm appearance-none  outline-none border-slate-500 bg-transparent  border-[0.2px] rounded-md border-opacity-50 placeholder-gray-300 placeholder-opacity-0 transition-transform duration-200"
-                                />
-                                <span className="pointer-events-none text-sm text-slate-500  bg-white  absolute left-3 top-3.5 px-1 transition-transform duration-200 input-text">
-                                    Contraseña
-                                </span>
-                            </div>
+                            <Input name="password" type="password" placeholder="Contraseña" />
 
-                            <button type="submit" className="p-3 w-full rounded-lg bg-black  text-white capitalize font-semibold transition-colors duration-500">
-                                inicia session
-                            </button>
+                            <SubmitButton content="Iniciar sesion" />
                         </form>
                     </section>
                 </div>

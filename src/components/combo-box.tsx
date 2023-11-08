@@ -10,34 +10,34 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface MateriaList {
+    id: string;
     value: string;
     label: string;
 }
 export function MateriaList({ data }: { data: Materia[] }) {
     const router = useRouter();
-    const location = window.location.href;
 
     const dataInfo = data.map((d: Materia): MateriaList => {
         return {
+            id: d.codigoMateria,
             value: d.nombre,
             label: d.nombre,
         };
     });
 
-    console.log(dataInfo);
-    const params = useSearchParams();
-
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState("");
 
     const searchParams = useSearchParams();
+    const isSelected = dataInfo.filter(d => d.id === searchParams.get("materias"));
 
+    console.log(isSelected);
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button variant="outline" disabled={!searchParams.get("docente")} role="combobox" aria-expanded={open} className="w-[200px] justify-between">
                     {searchParams.get("materias")
-                        ? searchParams.get("materias")
+                        ? isSelected[0].value
                         : value
                         ? dataInfo.find(d => d.value.toLowerCase() === value.toLowerCase())?.label
                         : "Seleccionar materia..."}
@@ -58,8 +58,7 @@ export function MateriaList({ data }: { data: Materia[] }) {
                                     onSelect={currentValue => {
                                         setValue(currentValue === value ? "" : currentValue);
                                         const params = new URLSearchParams(searchParams);
-                                        params.set("materias", d.value);
-
+                                        params.set("materias", d.id);
                                         router.replace(`?${params.toString()}`);
                                         setOpen(false);
                                     }}

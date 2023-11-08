@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface CursoList {
+    id: string;
     value: string;
     label: string;
 }
@@ -19,6 +20,7 @@ export function CoursesList({ data }: { data: Curso[] }) {
 
     const dataInfo = data.map((d: Curso): CursoList => {
         return {
+            id: d.id,
             value: d.nombre,
             label: d.nombre,
         };
@@ -28,12 +30,14 @@ export function CoursesList({ data }: { data: Curso[] }) {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState("");
 
+    const isSelected = dataInfo.filter(d => d.id === searchParams.get("curso"));
+
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button variant="outline" disabled={!searchParams.get("docente")} role="combobox" aria-expanded={open} className="w-[200px] justify-between">
                     {searchParams.get("curso")
-                        ? searchParams.get("curso")
+                        ? isSelected[0].value
                         : value
                         ? dataInfo.find(d => d.value.toLowerCase() === value.toLowerCase())?.label
                         : "Seleccionar curso..."}
@@ -53,7 +57,7 @@ export function CoursesList({ data }: { data: Curso[] }) {
                                 onSelect={currentValue => {
                                     setValue(currentValue === value ? "" : currentValue);
                                     const params = new URLSearchParams(searchParams);
-                                    params.set("curso", d.value);
+                                    params.set("curso", d.id);
 
                                     router.replace(`?${params.toString()}`);
 

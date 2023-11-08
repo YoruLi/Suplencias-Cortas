@@ -16,6 +16,12 @@ const config: Config = {
                 "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
 
+            gridTemplateColumns: {
+                signatures: "repeat(auto-fill, minmax(180px, 1fr))",
+                courses: "repeat(auto-fill, minmax(280px, 1fr))",
+                layout: "minmax(20px,1fr)",
+            },
+
             fontFamily: {
                 telex: ["Telex"],
                 stalinist: ["Stalanist"],

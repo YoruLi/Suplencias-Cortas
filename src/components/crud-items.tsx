@@ -2,34 +2,106 @@ import { docenteIcon, backArrow, dashBoardIcon } from "@/data/svgs";
 import Link from "next/link";
 import React from "react";
 import Icon from "./icon";
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "./ui/menubar";
 
-export default function CrudItems({ toggleShowMore, selectedItem }: { toggleShowMore: () => void; selectedItem: (href: string) => boolean }) {
+export default function CrudItems({ toggleShowMore, selectedItem, session }: { toggleShowMore: () => void; selectedItem: (href: string) => boolean; session: Session }) {
     const CRUD_ITEMS = [
-        { icon: dashBoardIcon, title: "Dashboard", href: "/dashboard", k: "dashboard" },
-        { icon: docenteIcon, title: "Docentes", href: "/docentes", k: "docentes" },
-        { icon: docenteIcon, title: "Cursos", href: "/cursos", k: "cursos" },
-        { icon: docenteIcon, title: "Materias", href: "/materias", k: "materias" },
-        { icon: docenteIcon, title: "Cargos", href: "/cargos", k: "cargos" },
+        { icon: dashBoardIcon, title: "Dashboard", href: "/dashboard", k: "dashboard", subItem: [] },
+        {
+            icon: docenteIcon,
+            title: "Docentes",
+            href: "/docentes",
+            k: "docentes",
+            subItem: [{ title: "Agregar docente", href: "/docentes/agregar", k: "agregar-docente" }],
+        },
+        { icon: docenteIcon, title: "Cursos", href: "/cursos", k: "cursos", subItem: [{ title: "Agregar curso", href: "/cursos/agregar", k: "agregar-curso" }] },
+        {
+            icon: docenteIcon,
+            title: "Materias",
+            href: "/materias",
+            k: "materias",
+            subItem: [
+                {
+                    title: "Plan de Estudio",
+                    href: "/plan-de-estudio",
+                    k: "plan-de-estudio",
+                    subItem: [
+                        {
+                            title: "Agregar",
+                            href: "/plan-de-estudio/agregar",
+                            k: "agregar-plan",
+                        },
+                    ],
+                },
+                { title: "Agregar materia", href: "/materias/agregar", k: "agregar-materia" },
+            ],
+        },
+        { icon: docenteIcon, title: "Cargos", href: "/cargos", k: "cargos", subItem: [{ title: "Agregar cargos", href: "/cargos/agregar", k: "agregar-cargos" }] },
     ];
 
     return (
-        <div className=" flex h-full overflow-x-auto bg-white w-full lg:flex-col justify-between md:gap-0 md:overflow-x-hidden md:bg-transparent md:px-0">
-            {CRUD_ITEMS.map(item => (
-                <>
-                    <Link
-                        prefetch={false}
-                        href={item.href}
-                        className={`flex px-6 w-full  lg:[&>svg]:mx-0 [&>svg]:mx-auto  py-4 lg:py-2 [&>svg]:fill-main hover:bg-[#f3f3f3] items-center 
+        <>
+            <Menubar className="  border-none flex h-full overflow-x-auto bg-white z-[9999999] w-full lg:flex-col justify-between md:gap-0 md:overflow-x-hidden md:bg-transparent md:px-0">
+                {CRUD_ITEMS.map(item => (
+                    <>
+                        <MenubarMenu>
+                            <MenubarTrigger asChild>
+                                <Link
+                                    prefetch={false}
+                                    href={item.href}
+                                    className={`flex px-6 w-full gap-2 lg:[&>svg]:mx-0 [&>svg]:mx-auto  py-0 h-full lg:py-2 [&>svg]:fill-[#0F172A] hover:bg-[#f3f3f3] items-center 
                     ${item.k === "view-more" ? " order-2 md:hidden" : ""}
-                    ${selectedItem(item.href) ? "bg-[#f3f3f3] lg:text-main" : ""}
+                    ${selectedItem(item.href) ? "bg-[#f3f3f3] lg:text-[#0F172A]" : ""}
                     
                     `}
-                    >
-                        <Icon {...item.icon} />
-                        <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.title}</span>
-                    </Link>
-                </>
-            ))}
+                                >
+                                    <Icon {...item.icon} />
+                                    <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.title}</span>
+                                </Link>
+                            </MenubarTrigger>
+
+                            {session ? (
+                                item.subItem?.length && item?.subItem?.length > 0 ? (
+                                    <MenubarContent className="bg-white z-[9999999] lg:absolute lg:-top-12 lg:left-[225px]">
+                                        {item.subItem.map(subitem => (
+                                            <>
+                                                {subitem.subItem && subitem.subItem.length > 0 ? (
+                                                    <>
+                                                        <MenubarSub>
+                                                            <MenubarSubTrigger>
+                                                                <Link prefetch={false} href={subitem.href}>
+                                                                    {subitem.title}
+                                                                </Link>
+                                                            </MenubarSubTrigger>
+                                                            <MenubarSubContent>
+                                                                {subitem.subItem.map(sub => (
+                                                                    <MenubarItem asChild>
+                                                                        <Link prefetch={false} href={sub.href}>
+                                                                            {sub.title}
+                                                                        </Link>
+                                                                    </MenubarItem>
+                                                                ))}
+                                                            </MenubarSubContent>
+                                                        </MenubarSub>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <MenubarItem asChild>
+                                                            <Link prefetch={false} href={subitem.href}>
+                                                                {subitem.title}
+                                                            </Link>
+                                                        </MenubarItem>
+                                                    </>
+                                                )}
+                                            </>
+                                        ))}
+                                    </MenubarContent>
+                                ) : null
+                            ) : null}
+                        </MenubarMenu>
+                    </>
+                ))}
+            </Menubar>
             <button
                 aria-label="Volver al menu"
                 className="group px-2 lg:hidden [&>svg]:w-5 grid place-content-center [&>svg]:h-5 [&>svg]:fill-slate-500"
@@ -37,6 +109,6 @@ export default function CrudItems({ toggleShowMore, selectedItem }: { toggleShow
             >
                 <Icon {...backArrow} />
             </button>
-        </div>
+        </>
     );
 }

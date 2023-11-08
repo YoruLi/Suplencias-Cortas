@@ -1,5 +1,6 @@
 import React from "react";
 import Input from "./Input";
+import { Button } from "./ui/button";
 
 type FormUserProps = {
     handleChange: (input: string) => (event: React.ChangeEvent<HTMLInputElement>) => void; // Ajuste en la firma de handleChange
@@ -12,19 +13,17 @@ export default function FormUserPersonalDetail({ handleChange, values, nextStep,
 
     const validateValues = { email, tel, dni, dir };
     return (
-        <form action="" className="flex flex-col gap-10 form mt-16 text-main [&>div>input]:text-black  [&>*]:border-main [&>div>span]:bg-white ">
+        <>
             <Input name="email" placeholder="email" defaultValue={email} onChange={handleChange("email")} />
             <Input name="tel" placeholder="telefono" defaultValue={tel} onChange={handleChange("tel")} />
             <Input name="dni" placeholder="DNI" defaultValue={dni} onChange={handleChange("dni")} />
             <Input name="dir" placeholder="direccion" defaultValue={dir} onChange={handleChange("dir")} />
             <div className="flex gap-3 relative self-end place-self-end">
-                <button className=" bg-[#b1443c] hover:bg-[#7a3b37] px-3 py-1.5 rounded-md text-white" onClick={prevStep}>
+                <Button className=" bg-[#b1443c] hover:bg-[#a25650]" onClick={prevStep}>
                     Volver atras
-                </button>
-                <button className=" bg-main hover:bg-[rgb(60,72,123)] px-3 py-1.5 rounded-md text-white" onClick={evt => nextStep(evt, validateValues)}>
-                    Continuar
-                </button>
+                </Button>
+                <Button onClick={evt => nextStep(evt, validateValues)}>Continuar</Button>
             </div>
-        </form>
+        </>
     );
 }
