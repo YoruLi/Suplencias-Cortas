@@ -12,7 +12,13 @@ export default async function page() {
         <div className=" h-full w-full  flex flex-col gap-4  relative overflow-hidden">
             <Title>Docentes</Title>
 
-            <DataTable columns={columns} data={teachers} />
+            {teachers.length ? (
+                <>
+                    <DataTable columns={columns} data={teachers} />
+                </>
+            ) : (
+                <span>No hay docentes...</span>
+            )}
         </div>
     );
 }

@@ -2,7 +2,7 @@
 import { revalidatePath } from "next/cache";
 
 export const editPlanDeEstudio = async (data: any) => {
-    const url = `http://localhost:3000/api/plan-de-estudio`;
+    const url = `http://localhost:3000/api/plan-de-estudio/${data.id}`;
     try {
         const res = await fetch(url, {
             method: "PUT",

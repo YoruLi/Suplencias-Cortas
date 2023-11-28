@@ -8,15 +8,6 @@ import { DeleteCargo } from "../cargos/delete-cargo";
 import EditTeacherDialog from "./dialog-edit-teacher";
 import { DataTableColumnHeader } from "../ui/data-columns-header";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-// export type Payment = {
-//     id: string;
-//     amount: number;
-//     status: "pending" | "processing" | "success" | "failed";
-//     email: string;
-// };
-
 export const columns: ColumnDef<Teacher>[] = [
     {
         accessorKey: "nombreCompleto",
@@ -52,7 +43,7 @@ export const columns: ColumnDef<Teacher>[] = [
         id: "actions",
         cell: ({ row }) => {
             const teacher = row.original;
-
+            console.log(teacher);
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -67,7 +58,7 @@ export const columns: ColumnDef<Teacher>[] = [
                         <DropdownMenuSeparator />
 
                         <DeleteCargo cargoId={teacher.idDocentes} entity="docentes" />
-                        <EditTeacherDialog teacher={teacher} />
+                        {/* <EditTeacherDialog teacher={teacher} /> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

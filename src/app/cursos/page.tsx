@@ -1,6 +1,5 @@
 import { getCursos } from "@/components/cursos/api/get-cursos";
 import { SheetDemo } from "@/components/sheet";
-import { Button } from "@/components/ui/button";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
@@ -16,6 +15,7 @@ type Props = {
 
 export default async function page({ searchParams }: Props) {
     const cursos = await getCursos(searchParams?.modalidad);
+
     return (
         <div className="w-full h-full flex gap-4 flex-col">
             <h2 className="text-2xl font-telex tracking-widest py-4">Cursos</h2>
@@ -34,7 +34,7 @@ export default async function page({ searchParams }: Props) {
                     </TabsTrigger>
 
                     <TabsTrigger value="construccion" asChild>
-                        <Link href={"cursos?modalidad=construccion"}>Consturccion</Link>
+                        <Link href={"cursos?modalidad=construccion"}>Construccion</Link>
                     </TabsTrigger>
                 </TabsList>
             </Tabs>

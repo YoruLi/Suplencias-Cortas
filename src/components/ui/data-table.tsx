@@ -130,9 +130,13 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="">
                                     {row.getVisibleCells().map(cell => {
-                                        return <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>;
+                                        return (
+                                            <TableCell className=" overflow-hidden text-ellipsis whitespace-nowrap " key={cell.id}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        );
                                     })}
                                 </TableRow>
                             ))

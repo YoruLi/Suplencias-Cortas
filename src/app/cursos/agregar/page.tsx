@@ -10,7 +10,7 @@ type Props = {
 export default function page({ searchParams }: Props) {
     return (
         <>
-            <CreateCourse modalidad={searchParams?.modalidad} />
+            <CreateCourse modalidad={searchParams?.modalidad ?? "ciclo-basico"} />
         </>
     );
 }

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { deleteAction } from "../../../actions/delete-plan";
+import toast from "react-hot-toast";
 
 export function DeleteCargo({ cargoId, entity }: { cargoId: string; entity: string }) {
     return (
@@ -25,7 +26,17 @@ export function DeleteCargo({ cargoId, entity }: { cargoId: string; entity: stri
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => deleteAction(entity, cargoId)}>Coninuar</AlertDialogAction>
+                    <AlertDialogAction
+                        onClick={() => {
+                            toast.promise(deleteAction(entity, cargoId), {
+                                loading: "Cargando...",
+                                success: "Se eliminó el cargo!",
+                                error: e => `Error: ${e.message}`,
+                            });
+                        }}
+                    >
+                        Coninuar
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

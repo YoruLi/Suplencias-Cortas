@@ -8,10 +8,11 @@ import DeleteButton from "@/components/delete-button";
 import { EditPlan } from "@/components/plan-de-estudio/edit-plan";
 
 export const revalidate = 0;
-export const dynamic = "force-dynamic";
+
 export default async function page() {
     const getPlanesDeEstudio = async () => {
         const result = await fetch("http://localhost:3000/api/plan-de-estudio", {
+            cache: "no-store",
             method: "GET",
         });
 

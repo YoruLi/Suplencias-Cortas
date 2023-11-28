@@ -4,7 +4,15 @@ import React from "react";
 import Icon from "./icon";
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "./ui/menubar";
 
-export default function CrudItems({ toggleShowMore, selectedItem, session }: { toggleShowMore: () => void; selectedItem: (href: string) => boolean; session: Session }) {
+export default function CrudItems({
+    toggleShowMore,
+    selectedItem,
+    session,
+}: {
+    toggleShowMore: () => void;
+    selectedItem: (href: string) => boolean;
+    session: Session | undefined;
+}) {
     const CRUD_ITEMS = [
         { icon: dashBoardIcon, title: "Dashboard", href: "/dashboard", k: "dashboard", subItem: [] },
         {
@@ -60,7 +68,7 @@ export default function CrudItems({ toggleShowMore, selectedItem, session }: { t
                                 </Link>
                             </MenubarTrigger>
 
-                            {session ? (
+                            {session?.success ? (
                                 item.subItem?.length && item?.subItem?.length > 0 ? (
                                     <MenubarContent className="bg-white z-[9999999] lg:absolute lg:-top-12 lg:left-[225px]">
                                         {item.subItem.map(subitem => (
@@ -101,14 +109,14 @@ export default function CrudItems({ toggleShowMore, selectedItem, session }: { t
                         </MenubarMenu>
                     </>
                 ))}
+                <button
+                    aria-label="Volver al menu"
+                    className="group px-2 lg:hidden [&>svg]:w-5 grid place-content-center [&>svg]:h-5 [&>svg]:fill-slate-500"
+                    onClick={toggleShowMore}
+                >
+                    <Icon {...backArrow} />
+                </button>
             </Menubar>
-            <button
-                aria-label="Volver al menu"
-                className="group px-2 lg:hidden [&>svg]:w-5 grid place-content-center [&>svg]:h-5 [&>svg]:fill-slate-500"
-                onClick={toggleShowMore}
-            >
-                <Icon {...backArrow} />
-            </button>
         </>
     );
 }

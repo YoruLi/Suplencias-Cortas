@@ -25,6 +25,13 @@ type Cargo = {
     horario: string;
 };
 
+type PlanDeEstudio = {
+    id: string;
+    nombre: string;
+    descripcion: string;
+    resolucion: string;
+};
+
 interface CargoResponse extends Cargo {
     nombreMateria: string;
     nombreDocente: string;
@@ -43,5 +50,3 @@ type Materia = {
     año: string;
     planDeEstudioId: string;
 };
-
-type TeachersResponse = Teacher[] | { success: boolean; message: string };

@@ -1,5 +1,5 @@
-export const editSignature = async (data: Curso) => {
-    const url = `http://localhost:3000/api/materias`;
+export const editSignature = async (id: string, data: Curso) => {
+    const url = `http://localhost:3000/api/materias/${id}`;
     try {
         const res = await fetch(url, {
             method: "PUT",

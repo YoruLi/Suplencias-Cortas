@@ -1,8 +1,7 @@
-"use server";
-
 export const getCargos = async () => {
     try {
         const res = await fetch(`http://localhost:3000/api/cargos`, {
+            cache: "no-store",
             method: "GET",
         });
 

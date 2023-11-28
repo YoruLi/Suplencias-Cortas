@@ -1,8 +1,23 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export function SelectItems({ title, formData, placeholder, children }: { title: string; formData: string; placeholder: string; children: React.ReactNode }) {
+interface SelectItemsPros {
+    title?: string;
+    formData?: string;
+    placeholder?: string;
+    children: React.ReactNode;
+    setValueForm?: any;
+}
+export function SelectItems(props: SelectItemsPros) {
+    const { formData, children, title, placeholder } = props;
     return (
-        <Select name={formData}>
+        <Select
+            name={formData}
+            {...(props.setValueForm && {
+                onValueChange: e => {
+                    props.setValueForm(props.formData, e);
+                },
+            })}
+        >
             <SelectTrigger className="min-w-[180px]  remove-ring">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>

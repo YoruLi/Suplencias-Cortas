@@ -5,20 +5,20 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
     const res = NextResponse.next();
-    const session = getSession();
+    const session = await getSession();
+
     const { origin, pathname } = new URL(req.url);
 
-    if (session?.user && (pathname === "/" || ["/login"].includes(pathname))) {
+    if (session.success && (pathname === "/" || ["/login"].includes(pathname))) {
         return NextResponse.redirect(new URL("/dashboard", origin));
     }
-
-    if (!session?.user) {
+    if (!session.success) {
         if (
             req.nextUrl.pathname.startsWith("/dashboard") ||
-            req.nextUrl.pathname.startsWith("/docentes/agregar") ||
-            req.nextUrl.pathname.startsWith("/cursos/agregar") ||
-            req.nextUrl.pathname.startsWith("/cargos/agregar") ||
-            req.nextUrl.pathname.startsWith("/materias/agregar")
+            req.nextUrl.pathname.startsWith("/docentes") ||
+            req.nextUrl.pathname.startsWith("/cursos") ||
+            req.nextUrl.pathname.startsWith("/cargos") ||
+            req.nextUrl.pathname.startsWith("/materias")
         ) {
             return NextResponse.redirect(new URL("/login", origin));
         }

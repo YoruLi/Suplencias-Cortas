@@ -6,11 +6,10 @@ export const edit = async (id: string, data: FormData) => {
 
     const { name, year } = formData;
     const signatureObject = {
-        codigoMateria: id,
-        nombre: name,
-        año: year,
+        ...(name && { nombre: name }),
+        ...(year && { año: year }),
     };
-    await editSignature(signatureObject);
+    await editSignature(id, signatureObject);
 
     return revalidatePath("/materias");
 };

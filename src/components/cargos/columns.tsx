@@ -4,17 +4,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { DialogDemo } from "./dialog";
-import { DeleteCargo } from "./delete-cargo";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-// export type Payment = {
-//     id: string;
-//     amount: number;
-//     status: "pending" | "processing" | "success" | "failed";
-//     email: string;
-// };
+import { DeleteCargo } from "./delete-cargo";
+import { EditTeacherPosition } from "../cargos/edit-teacher-position";
 
 export const columns: ColumnDef<CargoResponse>[] = [
     {
@@ -30,18 +22,22 @@ export const columns: ColumnDef<CargoResponse>[] = [
         header: "Materia",
     },
     {
-        accessorKey: "turno",
-        header: "Turno",
+        accessorKey: "dias",
+        header: "Dias",
     },
     {
         accessorKey: "horario",
         header: "Horario",
     },
     {
+        accessorKey: "estado",
+        header: "Estado",
+    },
+    {
         id: "actions",
         cell: ({ row }) => {
             const cargos = row.original;
-
+            console.log(cargos);
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -56,7 +52,7 @@ export const columns: ColumnDef<CargoResponse>[] = [
                         <DropdownMenuSeparator />
 
                         <DeleteCargo cargoId={cargos.idCargos} entity="cargos" />
-                        <DialogDemo cargo={cargos} />
+                        <EditTeacherPosition cargo={cargos} />
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

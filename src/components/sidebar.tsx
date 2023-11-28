@@ -8,7 +8,7 @@ import CrudItems from "./crud-items";
 import { usePathname } from "next/navigation";
 import MainItems from "./main-items";
 
-export default function Sidebar({ session }: { session: Session | undefined }) {
+export default function Sidebar({ session }: { session: Session }) {
     const [showMore, setShowMore] = useState(false);
     const handleShowMore = () => setShowMore(prevState => !prevState);
     const pathname = usePathname();

@@ -1,6 +1,3 @@
-"use server";
-import { revalidatePath } from "next/cache";
-
 export const getCursos = async (query: string | undefined = undefined) => {
     let url;
 
@@ -9,11 +6,12 @@ export const getCursos = async (query: string | undefined = undefined) => {
 
     try {
         const res = await fetch(url, {
+            cache: "no-store",
             method: "GET",
         });
 
         const result = await res.json();
-        revalidatePath("/cursos");
+
         return result as Curso[];
     } catch (error) {
         return [];

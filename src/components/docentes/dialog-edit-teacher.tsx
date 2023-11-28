@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { update } from "./api/update";
+
 import { editTeacher } from "../../../actions/update-teacher";
 
-export default function EditTeacherDialog({ teacher }: { teacher: Teacher }) {
+export default function EditTeacherPosition({ cargo }: { cargo: Cargo }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -17,14 +17,14 @@ export default function EditTeacherDialog({ teacher }: { teacher: Teacher }) {
                     <DialogTitle>Editar Cargo</DialogTitle>
                     <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
                 </DialogHeader>
-                <form action={async data => editTeacher(data, teacher)} className="grid gap-3.5 py-4">
+                <form action={async data => editTeacher(data, cargo)} className="grid gap-3.5 py-4">
                     <div className="flex flex-col gap-2.5 items-center relative remove-ring ">
                         <div className="flex items-center justify-start w-full gap-4  remove-ring">
                             <Label htmlFor="fullname" className="text-start ">
                                 Nombre completo
                             </Label>
 
-                            <Input placeholder="Nombre completo" name="fullname" defaultValue={teacher.nombreCompleto} className="remove-ring" />
+                            <Input placeholder="Nombre completo" name="fullname" defaultValue={cargo.nombreCompleto} className="remove-ring" />
                         </div>
 
                         <div className="flex items-center justify-start w-full gap-4  ">

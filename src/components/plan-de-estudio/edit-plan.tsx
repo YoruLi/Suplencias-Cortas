@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 
 import { Label } from "@/components/ui/label";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 import SubmitButton from "../submit-button";
 import { editPlanDeEstudio } from "./api/edit";
 
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
+import { planValidation } from "@/validation/zod";
 
 export function EditPlan({ planData }: { planData: any }) {
     const handleSubmit = async (data: FormData) => {
@@ -16,11 +17,15 @@ export function EditPlan({ planData }: { planData: any }) {
         const { name, description, resolution } = formData;
 
         const planObject = {
-            id: planData.id,
-            nombre: name,
-            descripcion: description,
-            resolucion: resolution,
+            ...(planData && { id: planData.id }),
+            ...(name && { nombre: name }),
+            ...(description && { descripcion: description }),
+            ...(resolution && { resolucion: resolution }),
         };
+        const validatedData = planValidation.safeParse(planObject);
+        if (!validatedData.success) {
+            return;
+        }
 
         await editPlanDeEstudio(planObject);
     };
@@ -75,7 +80,7 @@ export function EditPlan({ planData }: { planData: any }) {
                     <div>
                         <SheetFooter className="flex gap-2">
                             <div>
-                                <SubmitButton content="Guardar cambios" />
+                                <SubmitButton>Guardar cambios</SubmitButton>
                             </div>
                         </SheetFooter>
                     </div>

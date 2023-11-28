@@ -12,7 +12,7 @@ import { edit } from "../../../actions/update-signature";
 
 const signatureDays = ["1ro", "2do", "3ro", "4to", "5to", "6to", "7mo"];
 
-export default function SheetItem({ materia, index }: { materia: Materia; index: number }) {
+export default function SheetItem({ materia }: { materia: Materia }) {
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -26,12 +26,16 @@ export default function SheetItem({ materia, index }: { materia: Materia; index:
                     <span className="font-normal font-sans text-center  p-1 tracking-widest line-clamp-1 overflow-hidden text-ellipsis">
                         {materia.nombre} {materia.año}
                     </span>
+
+                    <span className="font-normal text-xs font-sans text-center  p-1 tracking-widest line-clamp-1 overflow-hidden text-ellipsis">
+                        {materia.nombreCompleto}
+                    </span>
                 </div>
             </SheetTrigger>
 
             <SheetContent className="overflow-y-scroll bg-white ">
                 <SheetHeader>
-                    <SheetTitle>Editar plan de estudio</SheetTitle>
+                    <SheetTitle>Editar materia</SheetTitle>
                     <SheetDescription>Haz cambios a los cursos aquí. Guarda los cambios cuando termines.</SheetDescription>
                 </SheetHeader>
                 <form action={data => edit(materia.codigoMateria, data)} className=" space-y-4 py-4  [&>div>*]:bg-white w-full">
@@ -62,7 +66,7 @@ export default function SheetItem({ materia, index }: { materia: Materia; index:
                                 Eliminar materia
                             </DeleteButton>
                             <div>
-                                <SubmitButton content="Guardar cambios" />
+                                <SubmitButton>Guardar cambios</SubmitButton>
                             </div>
                         </SheetFooter>
                     </div>

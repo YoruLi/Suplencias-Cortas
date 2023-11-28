@@ -1,3 +1,4 @@
+"use client";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -6,36 +7,36 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SelectNameCourse } from "./select-name-course";
 import { Select } from "../ui/select";
 import Link from "next/link";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+
 import SubmitButton from "../submit-button";
 
-export function CreateCourse({ modalidad }: { modalidad: string | undefined }) {
-    const handleSubmit = async (data: FormData) => {
-        "use server";
-        const form = Object.fromEntries(data);
+import toast from "react-hot-toast";
+import { createCourse } from "../../../actions/create-course";
+import { ZodError } from "zod";
 
-        const courseData = {
-            ...form,
-            modalidad,
-        };
-
-        const result = await fetch("http://localhost:3000/api/cursos", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(courseData),
-        });
-
-        revalidatePath("/cursos");
-        redirect("/cursos");
-    };
+export function CreateCourse({ modalidad }: { modalidad: string }) {
+    const isSelected = modalidad === "1" ? "informatica" : modalidad === "2" ? "quimica" : modalidad === "3" ? "construccion" : "ciclo-basico";
 
     return (
-        <form action={handleSubmit} className="grid place-content-center h-full lg:min-h-[calc(100dvh-56px)] min-h-[calc(100dvh-56px-56px)] mx-auto ">
-            <Tabs className="max-w-lg">
+        <form
+            action={data => {
+                createCourse(data, modalidad)
+                    .then(res => {
+                        console.log(res);
+                        if (res?.error === "ZodError") {
+                            return res?.data.forEach((issue: ZodError) => {
+                                toast.error(issue.message);
+                            });
+                        }
+                        res?.error ? toast.error(res.message) : toast.success("Curso creado con éxito!!");
+                    })
+                    .catch(error => {
+                        return toast.error(error.message);
+                    });
+            }}
+            className="grid place-content-center h-full lg:min-h-[calc(100dvh-56px)] min-h-[calc(100dvh-56px-56px)] mx-auto "
+        >
+            <Tabs className="max-w-lg" defaultValue={isSelected}>
                 <Select name="modalidad">
                     <TabsList className="grid w-full grid-cols-3">
                         <TabsTrigger asChild value="informatica">
@@ -73,7 +74,7 @@ export function CreateCourse({ modalidad }: { modalidad: string | undefined }) {
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <SubmitButton content="Crear" />
+                        <SubmitButton>Crear</SubmitButton>
                     </CardFooter>
                 </Card>
             </Tabs>

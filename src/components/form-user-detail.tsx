@@ -1,24 +1,51 @@
 import React from "react";
-import Input from "./Input";
+
 import { Button } from "./ui/button";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 type FormUserProps = {
-    handleChange: (input: string) => (event: React.ChangeEvent<HTMLInputElement>) => void; // Ajuste en la firma de handleChange
-    values: FormTypesProps;
-    nextStep: (event: React.MouseEvent<HTMLButtonElement>, values: { [key: string]: string }) => void;
+    handleChange: (formName: string, fieldName: string) => (event: React.ChangeEvent<HTMLInputElement>) => void; // Ajuste en la firma de handleChange
+    values: FormTeacherDetailValues;
+    handleTeacherDetail: any;
 };
 
-export default function FormUserDetail({ handleChange, values, nextStep }: FormUserProps) {
-    const { name, lastname } = values;
+const schema = z.object({
+    name: z.string().min(1, "El nombre es obligatorio"),
+    lastname: z.string().min(1, "El apeliido es obligatorio"),
+});
+
+export type FormTeacherDetailValues = z.infer<typeof schema>;
+
+export default function FormUserDetail({ values, handleChange, handleTeacherDetail }: FormUserProps) {
+    const {
+        handleSubmit,
+        register,
+        formState: { errors, isLoading },
+    } = useForm<FormTeacherDetailValues>({
+        resolver: zodResolver(schema),
+        defaultValues: values ?? {},
+    });
 
     return (
-        <>
-            <Input onChange={handleChange("name")} defaultValue={name} name="name" placeholder="nombre" />
-            <Input onChange={handleChange("lastname")} defaultValue={lastname} name="lastname" placeholder="apellido" />
+        <form className="w-full flex flex-col gap-10" onSubmit={handleSubmit(handleTeacherDetail)}>
+            <div>
+                <Label htmlFor="name">Nombre</Label>
+                <Input id="name" {...register("name")} value={values?.name} onChange={handleChange("form1", "name")} className="remove-ring" />
+                {errors.name && <p className="text-red-500 text-xs italic">{errors.name.message?.toString()}</p>}
+            </div>
+            <div>
+                <Label htmlFor="last-name">Apellido</Label>
+                <Input id="last-name" {...register("lastname")} value={values?.lastname} onChange={handleChange("form1", "lastname")} className="remove-ring" />
+                {errors.lastname && <p className="text-red-500 text-xs italic">{errors.lastname.message?.toString()}</p>}
+            </div>
 
             <div className="flex gap-3 relative self-end place-self-end">
-                <Button onClick={evt => nextStep(evt, { name, lastname })}>Continuar</Button>
+                <Button type="submit">Continuar</Button>
             </div>
-        </>
+        </form>
     );
 }

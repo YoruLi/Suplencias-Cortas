@@ -5,9 +5,9 @@ import { getSession } from "@/data/getSession";
 import { redirect } from "next/navigation";
 
 export default async function page() {
-    const session = getSession();
+    const session = await getSession();
 
-    if (!session) {
+    if (!session.success) {
         redirect("/login");
     }
     return (
@@ -16,5 +16,3 @@ export default async function page() {
         </>
     );
 }
-
-// bg - [rgb(47, 56, 97)];

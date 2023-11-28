@@ -1,33 +1,15 @@
 import { conn } from "@/libs/mysql/db";
+import { signatureValidation } from "@/validation/zod";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-    const { searchParams } = new URL(req.url);
-    const query = searchParams.get("query") as string;
-    if (query) {
-        try {
-            const materias = await conn.query(
-                `SELECT Materias.*, planesdeestudio.* FROM Materias JOIN planesdeestudio ON Materias.planDeEstudioId = planesdeestudio.id WHERE nombre = '${query}' `
-            );
+    try {
+        const materias = await conn.query(`SELECT * FROM Materias `);
 
-            await conn.end();
-
-            return NextResponse.json(materias);
-        } catch (error) {
-            return NextResponse.json(error, { status: 500 });
-        }
-    } else {
-        try {
-            const materias = await conn.query(
-                `SELECT Materias.*, planesdeestudio.nombre as planDeEstudio FROM Materias JOIN planesdeestudio ON Materias.planDeEstudioId = planesdeestudio.id`
-            );
-
-            await conn.end();
-
-            return NextResponse.json(materias);
-        } catch (error) {
-            return NextResponse.json(error, { status: 500 });
-        }
+        await conn.end();
+        return NextResponse.json(materias);
+    } catch (error) {
+        return NextResponse.json(error, { status: 500 });
     }
 }
 
@@ -36,29 +18,20 @@ export async function POST(req: Request) {
 
     const { name, year, planId } = data;
 
-    const createSignatureObject = {
-        codigoMateria: crypto.randomUUID(),
-        nombre: name,
-        año: year,
-        planDeEstudioId: planId,
-    };
-    const signature = await conn.query("INSERT INTO Materias SET ?", createSignatureObject);
-    await conn.end();
-    return NextResponse.json({ message: "Materia creada con exito", data: signature });
-}
-
-export async function DELETE(req: Request) {
-    const data = await req.json();
-    console.log(data);
-
     try {
-        const result = await conn.query(`DELETE FROM Materias WHERE codigoMateria = ?`, data);
-        await conn.end();
+        const createSignatureObject = {
+            codigoMateria: crypto.randomUUID(),
+            nombre: name,
+            año: year,
+            planDeEstudioId: planId,
+        };
+        const validatedData = signatureValidation.parse(createSignatureObject);
+        const signature = await conn.query("INSERT INTO Materias SET ?", validatedData);
 
-        return NextResponse.json(result);
+        await conn.end();
+        return NextResponse.json({ message: "Materia creada con exito", data: signature });
     } catch (error) {
-        console.log(error);
-        return NextResponse.json({ error: error.message });
+        return NextResponse.json({ message: "No se ha podido crear la materia", error: error });
     }
 }
 

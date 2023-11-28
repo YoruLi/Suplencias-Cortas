@@ -6,8 +6,6 @@ type Svg = {
 };
 
 type FormTypes = {
-    step: number;
-    totalSteps: number;
     name: string;
     lastname: string;
     email: string;

@@ -1,9 +1,6 @@
-"use server";
+interface TeacherProps extends Omit<Teacher, "idDocentes" | "nombreCompleto"> {}
 
-import { revalidatePath } from "next/cache";
-
-export const createTeacher = async (data: Teacher) => {
-    const validatedValues = {};
+export const create = async (data: TeacherProps) => {
     const res = await fetch(`http://localhost:3000/api/docentes`, {
         method: "POST",
         credentials: "include",
@@ -13,5 +10,6 @@ export const createTeacher = async (data: Teacher) => {
         body: JSON.stringify(data),
     });
 
-    return revalidatePath("/docentes");
+    const result = await res.json();
+    return result;
 };
