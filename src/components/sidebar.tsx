@@ -24,6 +24,8 @@ export default function Sidebar({ session }: { session: Session }) {
                     </h1>
 
                     <div className="order-0">
+                        
+                    <span className="text-[#636363] text-sm font-telex hidden lg:block px-6">Administrador</span>
                         <MainItems toggleShowMore={handleShowMore} selectedItem={selectedItem} session={session} />
                     </div>
                     <div
@@ -34,19 +36,15 @@ export default function Sidebar({ session }: { session: Session }) {
                         <CrudItems toggleShowMore={handleShowMore} selectedItem={selectedItem} session={session} />
                     </div>
 
-                    <span className="lg:w-[80%] w-[2px] my-3 h-8 lg:h-[1px] lg:mx-auto hidden lg:block bg-black opacity-25"></span>
-
+                  
+     <span className="lg:w-[80%] w-[2px] mb-3 lg:h-[1px] lg:mx-auto hidden lg:block bg-black opacity-25"></span>
                     <span className="text-[#636363] text-sm font-telex hidden lg:block px-6">Documentacion</span>
                     <div className="order-3">
                         <DocItems selectedItem={selectedItem} />
                     </div>
                 </nav>
 
-                <div style={{ marginTop: "auto" }}>
-                    <picture className="lg:grid hidden">
-                        <Image alt="logo de la escuela tecnica n2" src={tecnicaLogo.src} height={tecnicaLogo.height} width={tecnicaLogo.width} className="relative" />
-                    </picture>
-                </div>
+             
             </aside>
         </>
     );

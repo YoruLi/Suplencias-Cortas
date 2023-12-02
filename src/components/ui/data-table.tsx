@@ -22,10 +22,12 @@ import { Button } from "./button";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { DataTableFacetedFilter } from "./tabla-faceted-filter";
 import { DataTablePagination } from "./data-table-pagination";
+import { cn } from "@/utils/cn";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    className?: string;
 }
 export const statuses = [
     {
@@ -64,7 +66,7 @@ export const priorities = [
         value: "high",
     },
 ];
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, className }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -91,8 +93,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     });
     const isFiltered = table.getState().columnFilters.length > 0;
     return (
-        <div>
-            <div className="flex justify-between items-center">
+        <div className={cn(className)}>
+            {/* <div className="flex justify-between items-center">
                 <div className="flex items-center py-4">
                     <Input
                         placeholder="Filtrado por nombre..."
@@ -111,7 +113,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 </div>
 
                 <DataTableViewOptions table={table} />
-            </div>
+            </div> */}
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
@@ -150,7 +152,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     </TableBody>
                 </Table>
             </div>
-            <DataTablePagination table={table} />
+            {/* <DataTablePagination table={table} /> */}
         </div>
     );
 }

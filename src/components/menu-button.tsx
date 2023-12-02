@@ -33,7 +33,8 @@ export default function MenuButton(props: MenuButtonProps) {
                     ${props.k === "view-more" ? "lg:hidden" : ""}   
                     `}
         >
-            <Icon {...props.icon} />
+            <Icon {...props.icon} className="md:hidden block" />
+      
             <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{props.title}</span>
         </Tag>
     );

@@ -1,7 +1,7 @@
 import { conn } from "@/libs/mysql/db";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req: Request, { params }) {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     try {
         const result = await conn.query(`DELETE FROM Materias WHERE codigoMateria = ?`, params.id);
 
@@ -28,7 +28,7 @@ export async function DELETE(req: Request, { params }) {
     }
 }
 
-export async function PUT(req: Request, { params }) {
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
     const data = await req.json();
 
     try {

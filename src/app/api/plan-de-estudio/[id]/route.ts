@@ -1,7 +1,7 @@
 import { conn } from "@/libs/mysql/db";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req: Request, { params }) {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     try {
         const result = await conn.query(`DELETE FROM planesdeestudio WHERE id = ?`, params.id);
         await conn.end();
@@ -27,7 +27,7 @@ export async function DELETE(req: Request, { params }) {
     }
 }
 
-export async function PUT(req: Request, { params }) {
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
     const data = await req.json();
 
     const res = await conn.query("UPDATE planesdeestudio SET ? WHERE id = ?", [data, params.id]);

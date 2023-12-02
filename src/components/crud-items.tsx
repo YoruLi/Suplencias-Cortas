@@ -63,7 +63,7 @@ export default function CrudItems({
                     
                     `}
                                 >
-                                    <Icon {...item.icon} />
+                                    <Icon {...item.icon} className="md:hidden block" />
                                     <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.title}</span>
                                 </Link>
                             </MenubarTrigger>

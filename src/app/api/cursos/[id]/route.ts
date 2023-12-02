@@ -1,7 +1,7 @@
 import { conn } from "@/libs/mysql/db";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req: Request, { params }) {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     if (!params.id) {
         return NextResponse.json("Id is required");
     }

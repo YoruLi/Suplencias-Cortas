@@ -1,7 +1,7 @@
 import { conn } from "@/libs/mysql/db";
 import { NextResponse } from "next/server";
 
-export async function PUT(req: Request, { params }) {
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
     const data = await req.json();
 
     const objectData = {

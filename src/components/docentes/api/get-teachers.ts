@@ -13,7 +13,6 @@ export const getTeachers = async ({ query }: { query?: string | null }): Promise
         });
 
         const result = await res.json();
-        console.log(result);
 
         revalidatePath("/docentes");
         return result;
