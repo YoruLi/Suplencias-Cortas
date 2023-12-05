@@ -10,6 +10,7 @@ import { login } from "../../../../../actions/handle-login";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     username: z.string().min(1, "El usuario es obligatorio"),
@@ -20,6 +21,7 @@ type FormSchema = {
     password: string;
 };
 export default function LoginForm() {
+    const router = useRouter();
     const {
         handleSubmit,
         register,
@@ -31,6 +33,7 @@ export default function LoginForm() {
     const onSubmit = async (data: FormSchema) => {
         try {
             await login(data);
+            router.push("/dashboard");
             window.location.href = "/dashboard";
         } catch (error) {
             toast.error(getErrorMessage(error));
