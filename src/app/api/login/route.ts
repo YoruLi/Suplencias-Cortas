@@ -22,7 +22,7 @@ export async function POST(req: Request, res: NextApiResponse) {
 
         if (!(user.length && passwordCheck)) {
             return NextResponse.json({
-                message: "Usuario no encontrado",
+                message: "Credenciales inválidas",
                 status: 404,
             });
         } else {

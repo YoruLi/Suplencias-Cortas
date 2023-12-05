@@ -14,7 +14,7 @@ export default async function Page({ searchParams }) {
 
     return (
         <>
-            <div className="flex flex-col space-y-4 justify-center items-center h-full lg:min-h-[calc(100vh-56px)] min-h-[calc(100dvh-56px-56px)] mx-auto  w-full max-w-xl">
+            <div className="flex flex-col space-y-4 justify-center items-center h-full  min-h-[calc(100dvh-56px)] mx-auto  w-full max-w-xl">
                 <h2 className="text-2xl font-telex tracking-widest">Agregar Cargo</h2>
                 <CreateForm courses={courses} signature={signature} />
             </div>

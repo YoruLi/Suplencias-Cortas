@@ -60,7 +60,17 @@ export const check = {
     path: "m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z",
     viewBox: "0 0 24 24",
 };
+export const logOut = {
+    path: "M16 13v-2H7V8l-5 4 5 4v-3z M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z",
+    viewBox: "0 0 24 24",
+};
 
+export const logIn = {
+    path: "m13 16 5-4-5-4v3H4v2h9z M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z",
+    viewBox: "0 0 24 24",
+};
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     dashBoardIcon,
     leftArrow,
@@ -74,4 +84,6 @@ export default {
     signatureIcon,
     courseIcon,
     more,
+    logOut,
+    logIn,
 };

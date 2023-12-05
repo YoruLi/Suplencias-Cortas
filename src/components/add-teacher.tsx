@@ -6,6 +6,7 @@ import Icon from "./icon";
 
 import { Separator } from "./ui/separator";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Title from "./ui/title";
 
 const DinamycFormUserDetail = lazy(() => import("@/components/form-user-detail"));
 const DinamycFormUserPersonalDetail = lazy(() => import("@/components/form-user-personal-detail"));
@@ -164,9 +165,9 @@ export default function AddTeacher() {
     };
 
     return (
-        <div className="flex flex-col min-h-full text-white bg-transparent w-full ">
+        <div className="flex flex-col min-h-full  bg-transparent w-full ">
             <div className="pb-4">
-                <h2 className="text-2xl text-black">Agregar docente</h2>
+                <Title>Agregar docente</Title>
                 <span className="text-sm font-thin font-sans text-slate-600">Sigue los 4 pasos para agregar un nuevo docente</span>
             </div>
             <Separator orientation="horizontal" />

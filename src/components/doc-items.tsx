@@ -8,7 +8,7 @@ export default function DocItems({ selectedItem }: { selectedItem: (href: string
     return (
         <>
             {DOC_ITEMS.map(item => {
-                return <MenuButton {...item} selectedItem={selectedItem} />;
+                return <MenuButton key={item.k} {...item} selectedItem={selectedItem} />;
             })}
         </>
     );

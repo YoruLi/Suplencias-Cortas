@@ -10,30 +10,29 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import Link from "next/link";
 export default function User({ session }: { session: Session | undefined }) {
     return (
-        <div className={cn("w-full relative grid place-content-end p-2 z-50 bg-transparent")}>
+        <>
             {!session?.success ? (
-                <Button asChild>
-                    <Link href={"/login"}>Iniciar sesion</Link>
-                </Button>
+                <Link href={"/login"} className="flex gap-1 text-sm items-center w-full bg-transparent justify-center  hover:bg-[#f3f3f3] px-4 py-4 lg:py-2.5 lg:px-2.5">
+                    <Icon path={svgs.logIn.path} viewBox={svgs.logIn.viewBox} className="lg:w-5 lg:h-5" />
+                    <span className="hidden lg:block">Iniciar sesion</span>
+                </Link>
             ) : (
-                <div className="flex items-center gap-2">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger className="relative flex items-center gap-2 outline-none bg-[#e3e2e2] px-3 hover:bg-[#e0e0e0]  rounded">
-                            <Icon {...svgs.userIcon} className={cn("w-[34px] h-[34px]")} />
-                            <div>
-                                <span className="text-sm font-bold">{session?.user}</span>
-                                <legend className="text-xs text-start">Admin</legend>
-                            </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>Perfil</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => deleteSession()}>Cerrar sesion</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
+                <DropdownMenu>
+                    <DropdownMenuTrigger className="relative flex items-center lg:gap-2 outline-none rounded w-full bg-transparent px-4 py-4 lg:py-1 lg:px-1 hover:bg-[#f3f3f3]">
+                        <Icon {...svgs.userIcon} className={cn("w-6 lg:w-8 h-6 lg:h-8")} />
+                        <div>
+                            <span className="text-sm font-bold hidden lg:block">{session?.user}</span>
+                            <legend className="text-xs text-start hidden lg:block">Admin</legend>
+                        </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Perfil</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => deleteSession()}>Cerrar sesion</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             )}
-        </div>
+        </>
     );
 }

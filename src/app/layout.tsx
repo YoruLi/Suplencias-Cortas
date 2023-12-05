@@ -4,7 +4,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 
 import Sidebar from "@/components/sidebar";
-import User from "@/components/user";
+
 import { getSession } from "../data/getSession";
 import { Toaster } from "react-hot-toast";
 
@@ -30,12 +30,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     return (
         <html lang="en">
             <body className={`${telex.className} `}>
-                <div className="flex flex-col relative lg:flex-row ">
+                <div className="flex flex-col relative lg:flex-row">
                     <Sidebar session={session} />
-
-                    <main className="relative w-full lg:h-[calc(100dvh)] scrollbar-main h-[calc(100dvh-56px)] overflow-y-auto overflow-hidden   ">
-                        {<User session={session} />}
-                        <div className="lg:px-8 px-3 pb-16 ">{children}</div>
+                    <main className="relative w-full h-screen scrollbar-main overflow-y-auto overflow-hidden">
+                        <div className="px-3">{children}</div>
                     </main>
                 </div>
                 <Toaster position="bottom-right" />

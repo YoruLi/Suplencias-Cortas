@@ -8,7 +8,7 @@ export default async function page() {
 
     return (
         <>
-            <div className="grid place-items-center h-full lg:min-h-[calc(100dvh-56px)] min-h-[calc(100dvh-56px-56px)] mx-auto ">
+            <div className="grid place-items-center h-full min-h-[calc(100dvh-56px)] mx-auto ">
                 <CreateSignatureForm planes={planes} />
             </div>
         </>

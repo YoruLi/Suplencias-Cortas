@@ -1,5 +1,5 @@
-import { TableLoader } from "@/components/dashboard-loader";
 import React from "react";
+import { TableLoader } from "./components/loader";
 
 export default function loading() {
     return (

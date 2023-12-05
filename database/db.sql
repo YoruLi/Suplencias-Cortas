@@ -93,3 +93,84 @@ END;
 
 //
 DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+DROP TRIGGER IF EXISTS after_update_cargos;
+DELIMITER //
+
+CREATE TRIGGER after_update_cargos
+AFTER UPDATE ON cargos
+FOR EACH ROW
+BEGIN
+    -- Inserta el nuevo registro en la tabla de candidatos para docentes que cumplen el filtro
+    IF NEW.estado = 'Sin asignar' THEN
+        INSERT INTO candidatos (cargoId, candidatoId)
+        SELECT
+            NEW.idCargos,
+            docentes.idDocentes
+        FROM
+            docentes
+        WHERE
+            docentes.idDocentes NOT IN (
+                SELECT c.candidatoId
+                FROM candidatos AS c
+                WHERE c.cargoId = NEW.idCargos
+            )
+            AND (
+                NEW.dias IS NULL
+                OR NEW.horario IS NULL
+                OR NOT EXISTS (
+                    SELECT 1
+                    FROM cargos AS c2
+                    WHERE c2.docenteId = docentes.idDocentes
+                        AND (
+                            FIND_IN_SET(c2.horario, NEW.horario) > 0
+                            OR FIND_IN_SET(NEW.horario, c2.horario) > 0
+                        )
+                        AND (
+                            c2.dias IS NULL
+                            OR FIND_IN_SET(c2.dias, NEW.dias) > 0
+                            OR FIND_IN_SET(NEW.dias, c2.dias) > 0
+                        )
+                )
+            );
+    END IF;
+END;
+
+//
+
+DELIMITER ;
+
+
+
+
+
+
+
+SELECT 
+    DATE_FORMAT(createdAt, '%Y-%m') as mes,
+    COUNT(*) as cantidad
+FROM 
+    docentes
+WHERE 
+    createdAt >= CURDATE() - INTERVAL 12 MONTH
+GROUP BY 
+    mes
+ORDER BY 
+    mes;
+
+
+
+    SELECT 
+  MONTH(createdAt) as month, 
+  COUNT(*) as total
+FROM Docentes 
+GROUP BY MONTH(createdAt);

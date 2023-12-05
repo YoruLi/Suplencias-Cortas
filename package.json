@@ -46,6 +46,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
     "react-hot-toast": "^2.4.1",
+    "recharts": "^2.10.3",
     "serverless-mysql": "^1.5.5",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",

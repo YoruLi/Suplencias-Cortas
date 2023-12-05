@@ -12,7 +12,6 @@ export default async function Table() {
     const bitacora = await getBitacora();
     return bitacora.length > 0 ? (
         <>
-            <span>Bitacora</span>
             <DataTable columns={columns} data={bitacora} />
         </>
     ) : (

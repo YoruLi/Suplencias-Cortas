@@ -27,7 +27,7 @@ export default function MainItems({
                     ...(onClick && { onClick }),
                 };
 
-                return <MenuButton {...menuButtonProps} selectedItem={selectedItem} />;
+                return <MenuButton key={item.k} {...menuButtonProps} selectedItem={selectedItem} />;
             })}
         </>
     );

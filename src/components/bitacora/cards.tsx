@@ -1,7 +1,7 @@
 import svgs from "@/data/svgs";
 import { conn } from "@/libs/mysql/db";
 import React from "react";
-import AspectRatioContainer from "../ui/aspect-ratio-container";
+
 import Icon from "../icon";
 import { Card } from "../ui/card";
 
@@ -35,7 +35,7 @@ export default async function Cards() {
         <div className="flex  flex-wrap gap-4 items-center justify-evenly w-full  mb-8">
             {totalData.map(data => {
                 return (
-                    <Card className="max-w-[300px] w-full pb-2 ">
+                    <Card key={data.table} className="max-w-[300px] w-full pb-2 ">
                         <div className="flex flex-col justify-around  gap-3 p-6 capitalize font-bold text-xl">
                             <div className="flex justify-between">
                                 <span>{data.table}</span>

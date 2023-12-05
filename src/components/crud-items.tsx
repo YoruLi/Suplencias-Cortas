@@ -49,7 +49,7 @@ export default function CrudItems({
 
     return (
         <>
-            <Menubar className="  border-none flex h-full overflow-x-auto bg-white z-[9999999] w-full lg:flex-col justify-between md:gap-0 md:overflow-x-hidden md:bg-transparent md:px-0">
+            <Menubar className="  border-none  flex h-full overflow-x-auto bg-white z-[9999999] w-full lg:flex-col justify-between md:gap-0 md:overflow-x-hidden md:bg-transparent md:px-0">
                 {CRUD_ITEMS.map(item => (
                     <>
                         <MenubarMenu>
@@ -63,7 +63,7 @@ export default function CrudItems({
                     
                     `}
                                 >
-                                    <Icon {...item.icon} className="md:hidden block" />
+                                    <Icon {...item.icon} className="lg:hidden block" />
                                     <span className="hidden lg:block text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.title}</span>
                                 </Link>
                             </MenubarTrigger>
@@ -83,7 +83,7 @@ export default function CrudItems({
                                                             </MenubarSubTrigger>
                                                             <MenubarSubContent>
                                                                 {subitem.subItem.map(sub => (
-                                                                    <MenubarItem asChild>
+                                                                    <MenubarItem asChild key={sub.k}>
                                                                         <Link prefetch={false} href={sub.href}>
                                                                             {sub.title}
                                                                         </Link>

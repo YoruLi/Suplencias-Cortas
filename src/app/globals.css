@@ -76,6 +76,9 @@
 }
 
 @layer base {
+    .back-image {
+        background-image: url("../../public/imgs/image-1.jpg");
+    }
     .remove-ring {
         outline: none !important;
         --tw-ring-offset-width: 0 !important;

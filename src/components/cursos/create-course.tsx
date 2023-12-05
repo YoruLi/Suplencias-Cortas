@@ -34,7 +34,7 @@ export function CreateCourse({ modalidad }: { modalidad: string }) {
                         return toast.error(error.message);
                     });
             }}
-            className="grid place-content-center h-full lg:min-h-[calc(100dvh-56px)] min-h-[calc(100dvh-56px-56px)] mx-auto "
+            className="grid place-content-center h-full  min-h-[calc(100dvh-56px)] mx-auto"
         >
             <Tabs className="max-w-lg" defaultValue={isSelected}>
                 <Select name="modalidad">

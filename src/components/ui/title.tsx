@@ -1,5 +1,17 @@
+import { cn } from "@/utils/cn";
 import React from "react";
 
-export default function Title({ children }: { children: React.ReactNode }) {
-    return <h2 className="text-2xl font-telex tracking-widest py-4">{children}</h2>;
+interface Props extends React.HTMLAttributes<HTMLHeadingElement> {
+    children: React.ReactNode;
 }
+const Title = React.forwardRef<HTMLHeadingElement, Props>(({ children, className, ...props }, ref) => {
+    return (
+        <h2 className={cn("text-2xl font-telex tracking-widest py-4", className)} {...props} ref={ref}>
+            {children}
+        </h2>
+    );
+});
+
+Title.displayName = "Title";
+
+export default Title;
