@@ -34,11 +34,15 @@ export const columns: ColumnDef<Teacher>[] = [
         header: "Direccion",
     },
     {
-        accessorKey: "score",
-        header: ({ column }) => {
-            return <DataTableColumnHeader column={column} title="Puntaje" />;
-        },
+        accessorKey: "localidad",
+        header: "Localidad",
     },
+    // {
+    //     accessorKey: "score",
+    //     header: ({ column }) => {
+    //         return <DataTableColumnHeader column={column} title="Puntaje" />;
+    //     },
+    // },
     {
         id: "actions",
         cell: ({ row }) => {

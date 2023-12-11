@@ -8,7 +8,7 @@ const divisiones = ["1ra", "2da", "3ra", "4ta", "5ta", "6ta", "7ma", "8va", "9na
 
 export function SelectNameCourse() {
     return (
-        <div className="flex mx-auto w-full items-center justify-evenly">
+        <div className="flex flex-wrap mx-auto w-full items-center justify-evenly">
             <SelectItems title="Cursos" formData="curso" placeholder="Cursos">
                 {cursos.map(curso => (
                     <>

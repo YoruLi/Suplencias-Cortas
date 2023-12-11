@@ -46,6 +46,9 @@ export default function AddTeacher() {
         },
         form3: {
             score: 0,
+            nac: null,
+            antiguedadEsc: null,
+            antiguedadDoc: null,
         },
     });
     const router = useRouter();
@@ -154,8 +157,6 @@ export default function AddTeacher() {
                 })
             ).json();
 
-            console.log("response", response);
-
             setForm(response.formData);
         } catch (error) {
             return {};
@@ -176,7 +177,7 @@ export default function AddTeacher() {
                     <ul className="relative flex gap-4 mt-4 ">
                         {STEPS.map((step, index) => {
                             return (
-                                <li className="flex gap-1 place-items-center text-center relative bg-current z-40 ">
+                                <li className="flex gap-1 place-items-center text-center relative bg-transparent z-40 ">
                                     <span
                                         className={cn("capitalize font-normal  text-slate-400  text-xs font-sans w-full hidden lg:block ", {
                                             "text-[#0F172A]  font-bold ": formStep === index,

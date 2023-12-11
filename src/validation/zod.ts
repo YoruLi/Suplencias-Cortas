@@ -32,7 +32,10 @@ export const teacherValidation = z
         tel: z.string(),
         dni: z.string(),
         dir: z.string(),
-        score: z.number(),
+        nac: z.string(),
+        antiguedadEsc: z.string(),
+        antiguedadDoc: z.string(),
+        localidad: z.string(),
     })
     .superRefine((values, ctx) => {
         if (!values.email) {
@@ -69,6 +72,19 @@ export const planValidation = z.object({
     nombre: z.string().min(1, "El nombre es obligatoria"),
     descripcion: z.string().min(1, "La descripcion es obligatoria"),
     resolucion: z.string().min(1, "La resolucion es obligatoria"),
+});
+
+export const obleaSchema = z.object({
+    docenteId: z.string({
+        required_error: "El docente es requerido",
+    }),
+    materias: z
+        .string({
+            required_error: "La materia es obligatoria",
+        })
+        .min(1, "Materia requerida"),
+    score: z.string().min(1, "No te olvides el score"),
+    codigoSuna: z.string().optional(),
 });
 
 // export type FormData = z.infer<typeof formTeacherSchema>;

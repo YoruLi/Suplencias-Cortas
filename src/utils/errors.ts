@@ -3,6 +3,53 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+export enum HttpStatus {
+    OK = 200,
+    NOT_FOUND = 404,
+    UNAUTHORIZAED = 401,
+    FORBIDDEN = 403,
+    INTERNAL_SERVER_ERROR = 500,
+    ER_DUP_ENTRY = 409,
+}
+
+export class HttpResponse {
+    OK(data?: any) {
+        return NextResponse.json({
+            status: HttpStatus.OK,
+            data: data,
+            error: "Success",
+        });
+    }
+
+    NotFound(data?: any) {
+        return NextResponse.json({
+            status: HttpStatus.NOT_FOUND,
+            data: data,
+            error: "Not found",
+        });
+    }
+
+    InternalServerError(data?: any) {
+        return NextResponse.json({
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            data: data,
+            error: "Internal server error",
+        });
+    }
+
+    ER_DUP_ENTRY(data?: any) {
+        return NextResponse.json(
+            {
+                data: data,
+                error: "Registro duplicado",
+            },
+            {
+                status: HttpStatus.ER_DUP_ENTRY,
+            }
+        );
+    }
+}
+
 export const createError = function (name: string) {
     return class ErrorHandler extends Error {
         constructor(message = "Ha ocurrido un error inesperado!") {

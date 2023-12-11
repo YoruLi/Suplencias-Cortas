@@ -1,7 +1,11 @@
+import { ZodError } from "zod";
+
 export const getErrorMessage = (error: unknown): string => {
     let message: string;
 
-    if (error instanceof Error) {
+    if (error instanceof ZodError) {
+        message = error.issues.map(err => err.message.split(", "));
+    } else if (error instanceof Error && error?.message) {
         message = error.message;
     } else if (error && typeof error === "object" && "message" in error) {
         message = String(error.message);

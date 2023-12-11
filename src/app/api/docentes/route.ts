@@ -16,7 +16,11 @@ export async function GET(req: Request) {
         }
     } else {
         try {
-            const teachers = await conn.query("SELECT * FROM Docentes");
+            const teachers = await conn.query(`
+            SELECT * FROM Docentes 
+            ORDER BY docentes.createdAt DESC
+            LIMIT 5
+      `);
             await conn.end();
             return NextResponse.json(teachers);
         } catch (error) {
@@ -27,12 +31,13 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
     const data = await req.json();
-
-    const { name, lastname, email, tel, dni, dir, score } = data;
+    console.log(data);
+    const { name, lastname, email, tel, dni, dir, nac, antiguedadEsc, antiguedadDoc, localidad } = data;
 
     const fullname = `${name} ${lastname}`;
     const validatedData = teacherValidation.safeParse(data);
     if (!validatedData.success) {
+        console.log(validatedData.error);
         return NextResponse.json({ message: "Asegúrate de completar antes de continuar", status: 400, error: validatedData.error });
     }
     try {
@@ -43,7 +48,10 @@ export async function POST(req: Request) {
             tel,
             dni,
             dir,
-            score: Number(score),
+            nac: new Date(nac),
+            antiguedadDoc: new Date(antiguedadDoc),
+            antiguedadEsc: new Date(antiguedadEsc),
+            localidad,
         };
 
         const newTeacher = await conn.query("INSERT INTO Docentes SET ? ", objectData);

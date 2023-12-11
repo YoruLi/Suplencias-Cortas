@@ -10,7 +10,17 @@ import React from "react";
 import { Overview } from "./components/overview";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default async function page() {
+export default async function page({
+    searchParams,
+}: {
+    searchParams: {
+        pages: number;
+        currentPage: number;
+    };
+}) {
+    const pages = Number(searchParams?.pages) || 10;
+    const currentPage = Number(searchParams?.currentPage) || 1;
+
     return (
         <div className="space-y-10">
             <div className="mx-auto">
@@ -21,7 +31,7 @@ export default async function page() {
                 </React.Suspense>
             </div>
 
-            <div className="flex xl:flex-row flex-col gap-2">
+            <div className="flex flex-col gap-2">
                 <Card className="flex-[2] h-full rounded-lg border">
                     <CardHeader>
                         <CardTitle>Docentes</CardTitle>
@@ -32,8 +42,8 @@ export default async function page() {
                 </Card>
 
                 <div className="flex-0">
-                    <React.Suspense fallback={<TableLoader />}>
-                        <Table />
+                    <React.Suspense key={currentPage + pages} fallback={<TableLoader />}>
+                        <Table pages={pages} currentPage={currentPage} />
                     </React.Suspense>
                 </div>
             </div>

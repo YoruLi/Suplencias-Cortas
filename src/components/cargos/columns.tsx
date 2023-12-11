@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 
 import { DeleteCargo } from "./delete-cargo";
 import { EditTeacherPosition } from "../cargos/edit-teacher-position";
+import Candidates from "@/app/(pages)/cargos/components/candidates";
 
 export const columns: ColumnDef<CargoResponse>[] = [
     {
@@ -33,11 +34,15 @@ export const columns: ColumnDef<CargoResponse>[] = [
         accessorKey: "estado",
         header: "Estado",
     },
+
+    {
+        accessorKey: "titular",
+        header: "Suplente de",
+    },
     {
         id: "actions",
         cell: ({ row }) => {
             const cargos = row.original;
-            console.log(cargos);
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -48,11 +53,9 @@ export const columns: ColumnDef<CargoResponse>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(cargos.nombreDocente)}>Copiar docente</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-
-                        <DeleteCargo cargoId={cargos.idCargos} entity="cargos" />
+                        <Candidates cargoId={cargos.idCargos} />
                         <EditTeacherPosition cargo={cargos} />
+                        <DeleteCargo cargoId={cargos.idCargos} entity="cargos" />
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

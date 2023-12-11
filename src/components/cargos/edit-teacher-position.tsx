@@ -17,6 +17,8 @@ import { SelectItems } from "../ui/select-items";
 import { SelectItem } from "../ui/select";
 import { AutoCompleteField } from "../auto-complete-field";
 import { useForm } from "react-hook-form";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { MenuItem } from "@mui/material";
 
 const stateAsignation = ["Asignado", "Sin asignar"];
 export function EditTeacherPosition({ cargo }: { cargo: CargoResponse }) {
@@ -109,7 +111,7 @@ export function EditTeacherPosition({ cargo }: { cargo: CargoResponse }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Editar Cargo</Button>
+                <MenuItem className="!text-sm !px-2 text-start">Editar cargo</MenuItem>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

@@ -1,9 +1,18 @@
-import { docenteIcon, backArrow, dashBoardIcon } from "@/data/svgs";
+import { docenteIcon, backArrow, dashBoardIcon, courseIcon, signatureIcon, cargosIcon } from "@/data/svgs";
 import Link from "next/link";
 import React from "react";
 import Icon from "./icon";
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "./ui/menubar";
 
+type CrudItem = {
+    icon?: Svg;
+    title: string;
+    href: string;
+    k: string;
+};
+interface CrudItems extends CrudItem {
+    subItem?: CrudItems[];
+}
 export default function CrudItems({
     toggleShowMore,
     selectedItem,
@@ -13,18 +22,32 @@ export default function CrudItems({
     selectedItem: (href: string) => boolean;
     session: Session | undefined;
 }) {
-    const CRUD_ITEMS = [
+    const CRUD_ITEMS: CrudItems[] = [
         { icon: dashBoardIcon, title: "Dashboard", href: "/dashboard", k: "dashboard", subItem: [] },
         {
             icon: docenteIcon,
             title: "Docentes",
             href: "/docentes",
             k: "docentes",
-            subItem: [{ title: "Agregar docente", href: "/docentes/agregar", k: "agregar-docente" }],
+            subItem: [
+                { title: "Agregar docente", href: "/docentes/agregar", k: "agregar-docente" },
+                {
+                    title: "Oblea",
+                    href: "/oblea",
+                    k: "oblea",
+                    subItem: [
+                        {
+                            title: "Crear oblea",
+                            href: "oblea/crear",
+                            k: "create-oblea",
+                        },
+                    ],
+                },
+            ],
         },
-        { icon: docenteIcon, title: "Cursos", href: "/cursos", k: "cursos", subItem: [{ title: "Agregar curso", href: "/cursos/agregar", k: "agregar-curso" }] },
+        { icon: courseIcon, title: "Cursos", href: "/cursos", k: "cursos", subItem: [{ title: "Agregar curso", href: "/cursos/agregar", k: "agregar-curso" }] },
         {
-            icon: docenteIcon,
+            icon: signatureIcon,
             title: "Materias",
             href: "/materias",
             k: "materias",
@@ -44,7 +67,7 @@ export default function CrudItems({
                 { title: "Agregar materia", href: "/materias/agregar", k: "agregar-materia" },
             ],
         },
-        { icon: docenteIcon, title: "Cargos", href: "/cargos", k: "cargos", subItem: [{ title: "Agregar cargos", href: "/cargos/agregar", k: "agregar-cargos" }] },
+        { icon: cargosIcon, title: "Cargos", href: "/cargos", k: "cargos", subItem: [{ title: "Agregar cargos", href: "/cargos/agregar", k: "agregar-cargos" }] },
     ];
 
     return (

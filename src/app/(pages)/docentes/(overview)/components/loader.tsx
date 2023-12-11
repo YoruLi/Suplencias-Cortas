@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader";
 
 export const TableLoader = () => {
     return (
-        <ContentLoader width={1400} height={600} viewBox="0 0 1400 600" backgroundColor="#eaeced" foregroundColor="#ffffff" className="lg:-ml-[45px] -ml-[40px]  ">
+        <ContentLoader width={1400} height={600} viewBox="0 0 1400 600" backgroundColor="#eaeced" foregroundColor="#ffffff" className="lg:-ml-[45px] -ml-[40px] ">
             <rect x="51" y="45" rx="3" ry="3" width="1200" height="17" />
             <rect x="50" y="0" rx="3" ry="3" width="141" height="30" />
             <rect x="104" y="115" rx="3" ry="3" width="141" height="15" />

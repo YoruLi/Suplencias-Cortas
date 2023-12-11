@@ -6,6 +6,7 @@ import { Box, Grid, TextField, Typography, debounce } from "@mui/material";
 import { getTeachers } from "./docentes/api/get-teachers";
 
 import { UserIcon } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface RHFAutocompleteFieldProps<TField extends FieldValues> {
     control?: Control<TField>;
@@ -18,21 +19,22 @@ interface RHFAutocompleteFieldProps<TField extends FieldValues> {
 
 export const AutoCompleteField = <TField extends FieldValues>(props: RHFAutocompleteFieldProps<TField>) => {
     const [value, setValue] = React.useState<any | null>(null);
-
+    const searchParams = useSearchParams();
     const [inputValue, setInputValue] = React.useState("");
     const [options, setOptions] = React.useState<readonly any[]>([]);
-
+    const router = useRouter();
+    const pathname = usePathname();
     const fetch = React.useMemo(
         () =>
             debounce(async (request: { input: string }, callback: (results?: readonly any[]) => void) => {
                 try {
                     const results = await getTeachers({ query: request.input });
 
-                    callback(results);
+                    callback(results || []);
                 } catch (error) {
                     console.error("Error fetching teachers:", error);
                 }
-            }, 400),
+            }, 1000),
         []
     );
 
@@ -40,10 +42,8 @@ export const AutoCompleteField = <TField extends FieldValues>(props: RHFAutocomp
         let active = true;
 
         if (inputValue === "") {
-            setOptions(value ? [value] : []);
-            return undefined;
+            return setOptions(value ? [value] : []);
         }
-
         fetch({ input: inputValue }, (results?: readonly any[]) => {
             if (active) {
                 let newOptions: readonly any[] = [];
@@ -59,7 +59,6 @@ export const AutoCompleteField = <TField extends FieldValues>(props: RHFAutocomp
                 setOptions(newOptions);
             }
         });
-        console.log(value);
         return () => {
             active = false;
         };
@@ -73,33 +72,32 @@ export const AutoCompleteField = <TField extends FieldValues>(props: RHFAutocomp
                 rules={{ required: "Este campo es requerido" }}
                 render={({ field, fieldState: { error } }) => {
                     const { onChange, value, ref } = field;
+
                     return (
                         <>
                             <AutoComplete
                                 id="teacher-demo"
                                 autoComplete
                                 filterOptions={x => x}
-                                isOptionEqualToValue={React.useCallback((option, value) => option.value === value.value, [])}
-                                getOptionLabel={option => (typeof option === "string" ? option : option.nombreCompleto)}
-                                value={value}
+                                isOptionEqualToValue={(option, value) => {
+                                    return option.idDocentes === value.idDocentes;
+                                }}
+                                getOptionLabel={option => (typeof option === "string" ? option : option.nombreCompleto || "")}
                                 options={options}
-                                filterSelectedOptions
-                                includeInputInList
                                 noOptionsText="No se encontraron docentes..."
                                 onChange={(event: any, newValue: any | null) => {
-                                    setOptions(newValue ? [newValue, ...options] : options);
-                                    setValue(newValue);
                                     onChange(newValue);
-
+                                    const params = new URLSearchParams(searchParams);
+                                    params.set("docente", newValue?.idDocentes);
+                                    router.replace(`${pathname}?${params.toString()}`);
                                     props.setValueForm("docentes", newValue?.idDocentes);
                                 }}
                                 inputValue={inputValue}
-                                onInputChange={(event, newInputValue, reason) => {
+                                onInputChange={(_, newInputValue) => {
                                     setInputValue(newInputValue);
-                                    props.setValueForm("docentes", newInputValue);
                                 }}
                                 renderInput={params => <TextField {...params} label={props.placeholder} inputRef={ref} />}
-                                renderOption={(props, option) => {
+                                renderOption={({ ...props }, option) => {
                                     return (
                                         <li {...props}>
                                             <Grid container alignItems="center">

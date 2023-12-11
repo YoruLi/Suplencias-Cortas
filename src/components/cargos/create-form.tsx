@@ -47,13 +47,14 @@ export default function CreateForm({ signature, courses }: { signature: Materia[
     });
 
     const handleCreateTeacherPosition = async (data: FieldValues) => {
+        console.log(data);
         const validatedData = schema.safeParse(data);
 
         if (!validatedData.success) {
             console.log(validatedData.error);
             return;
         }
-        console.log(validatedData.data);
+
         await createTeachingPosition(validatedData.data);
     };
 

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Icon from "./icon";
 import svgs from "@/data/svgs";
 import { redirect } from "next/navigation";
+import { formattedDate } from "@/utils/formatted-date";
 
 interface ConfirmProps {
     form1: {
@@ -20,7 +21,10 @@ interface ConfirmProps {
         dir: string;
     };
     form3: {
-        score: string;
+        nac: string;
+        antiguedadDoc: string;
+        antiguedadEsc: string;
+        localidad: string;
     };
 }
 
@@ -42,7 +46,11 @@ export default function Confirm({ values, prevStep }: { values: ConfirmProps; pr
         { label: "Email", value: contentValues.email },
         { label: "DNI", value: contentValues.dni },
         { label: "Teléfono", value: contentValues.tel },
-        { label: "Puntuación", value: contentValues.score },
+        { label: "Dirección", value: contentValues.dir },
+        { label: "Localidad", value: contentValues.localidad },
+        { label: "Fecha de nacimiento", value: formattedDate(contentValues.nac) },
+        { label: "Antiguedad en la escuela", value: formattedDate(contentValues.antiguedadEsc) },
+        { label: "Antiguedad en la docencia", value: formattedDate(contentValues.antiguedadDoc) },
     ];
 
     return (
@@ -51,6 +59,12 @@ export default function Confirm({ values, prevStep }: { values: ConfirmProps; pr
                 createTeacher(contentValues).then(res => {
                     toast(res.message, {
                         icon: <Icon {...svgs.userIcon} />,
+                    });
+
+                    toast.custom(t => {
+                        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                            <code className="text-white">{JSON.stringify(res.message, null, 2)}</code>
+                        </pre>;
                     });
                 });
             }}

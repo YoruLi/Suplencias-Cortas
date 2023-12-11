@@ -31,7 +31,7 @@ export async function POST(req: Request, res: NextApiResponse) {
                 .setJti(crypto.randomUUID())
                 .setIssuedAt()
                 .setAudience(username)
-                .setExpirationTime("1h")
+                .setExpirationTime("10d")
                 .sign(new TextEncoder().encode(getJwtSecretKey()));
 
             // res.setHeader(

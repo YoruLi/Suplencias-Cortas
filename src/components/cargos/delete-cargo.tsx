@@ -12,12 +12,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { deleteAction } from "../../../actions/delete-plan";
 import toast from "react-hot-toast";
+import { MenuItem } from "@mui/material";
 
 export function DeleteCargo({ cargoId, entity }: { cargoId: string; entity: string }) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant="outline">Eliminar cargo</Button>
+                <MenuItem className="!text-sm !px-2 text-start">Eliminar cargo</MenuItem>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>

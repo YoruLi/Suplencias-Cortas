@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <body className={`${telex.className} `}>
                 <div className="flex flex-col relative lg:flex-row">
                     <Sidebar session={session} />
-                    <main className="relative w-full h-screen scrollbar-main overflow-y-auto overflow-hidden">
+                    <main className="relative w-full h-[calc(100dvh-56px)] lg:h-screen scrollbar-main overflow-y-auto overflow-hidden">
                         <div className="px-3">{children}</div>
                     </main>
                 </div>

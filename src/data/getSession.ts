@@ -14,6 +14,7 @@ export const getJwtSecretKey = () => {
 export const verifyToken = async (token: string) => {
     try {
         const verify = await jose.jwtVerify(token, new TextEncoder().encode(getJwtSecretKey()));
+
         return verify.payload;
     } catch (error) {
         throw new Error("Token has expired");
@@ -22,6 +23,12 @@ export const verifyToken = async (token: string) => {
 
 export const getSession = async () => {
     const token = cookies().get("user-token")?.value;
+    if (!token) {
+        return {
+            succes: false,
+        };
+    }
+
     const verifiedToken =
         token &&
         (await verifyToken(token).catch(err => {
@@ -37,3 +44,30 @@ export const getSession = async () => {
               success: false,
           };
 };
+
+// export const refreshAccessToken = async (refreshToken: any) => {
+//     "use server";
+//     try {
+//         const response = await fetch("http://localhost:3000/api/refresh-token", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({
+//                 refresh_token: refreshToken,
+//                 username: refreshToken.aud,
+//             }),
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`Error al renovar el token. Código de estado: ${response.status}`);
+//         }
+
+//         const refreshedToken = await response.json();
+
+//         return refreshedToken;
+//     } catch (error) {
+//         console.error("Error al refrescar el token:", error);
+//         throw new Error("Error al renovar el access token");
+//     }
+// };

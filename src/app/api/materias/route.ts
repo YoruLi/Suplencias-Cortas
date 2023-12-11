@@ -29,6 +29,7 @@ export async function POST(req: Request) {
         const signature = await conn.query("INSERT INTO Materias SET ?", validatedData);
 
         await conn.end();
+
         return NextResponse.json({ message: "Materia creada con exito", data: signature });
     } catch (error) {
         return NextResponse.json({ message: "No se ha podido crear la materia", error: error });

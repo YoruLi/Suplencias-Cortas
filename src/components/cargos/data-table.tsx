@@ -39,15 +39,22 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         <TableBody>
                             {table.getRowModel().rows?.length ? (
                                 table.getRowModel().rows.map(row => (
-                                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                                        {row.getVisibleCells().map(cell => {
-                                            return (
-                                                <TableCell className=" overflow-hidden text-ellipsis whitespace-nowrap " key={cell.id}>
-                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
+                                    <>
+                                        <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                            {row.getVisibleCells().map(cell => {
+                                                return (
+                                                    <TableCell
+                                                        className={` overflow-hidden text-ellipsis whitespace-nowrap ${
+                                                            cell.row.original.estado === "Sin asignar" ? "line-through" : ""
+                                                        }`}
+                                                        key={cell.id}
+                                                    >
+                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    </>
                                 ))
                             ) : (
                                 <TableRow>

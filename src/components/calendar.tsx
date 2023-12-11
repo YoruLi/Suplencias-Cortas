@@ -4,6 +4,21 @@ import * as React from "react";
 import { Button } from "./ui/button";
 
 import DemoMultiList from "./ui/demo-multi-list";
+const hours = [
+    {
+        label: "1ra-2da",
+        value: "1ra y 2da",
+    },
+    {
+        label: "3ra-4ta",
+        value: "3ra y 4ta",
+    },
+
+    {
+        label: "5ta",
+        value: "5ta",
+    },
+];
 
 export function CalendarDemo({ errors, setValueForm }: { register: any; errors: any; setValueForm: any }) {
     const [selectedDays, setSelectedDays] = React.useState<string[]>([]);
@@ -52,7 +67,7 @@ export function CalendarDemo({ errors, setValueForm }: { register: any; errors: 
                 {selectedDays.map((selectedDay, index) => (
                     <div key={selectedDay}>
                         <label>{selectedDay}:</label>
-                        <DemoMultiList listData={data => handleListDataChange(selectedDay, data)} />
+                        <DemoMultiList listData={data => handleListDataChange(selectedDay, data)} options={hours} />
                     </div>
                 ))}
                 {errors.hours && <p className="text-red-500 text-xs italic">{errors.hours && Object.values(errors.hours)[0].message?.toString()}</p>}

@@ -20,7 +20,6 @@ import { Input } from "@/components/ui/input";
 import React from "react";
 import { Button } from "./button";
 import { DataTableViewOptions } from "./data-table-view-options";
-import { DataTableFacetedFilter } from "./tabla-faceted-filter";
 import { DataTablePagination } from "./data-table-pagination";
 import { cn } from "@/utils/cn";
 
@@ -28,6 +27,10 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
     className?: string;
+    toggleColumns?: boolean;
+    searchBar?: boolean;
+    currentPage: number;
+    pagination?: boolean;
 }
 export const statuses = [
     {
@@ -66,7 +69,16 @@ export const priorities = [
         value: "high",
     },
 ];
-export function DataTable<TData, TValue>({ columns, data, className }: DataTableProps<TData, TValue>) {
+
+export function DataTable<TData, TValue>({
+    columns,
+    data,
+    className,
+    toggleColumns = false,
+    searchBar = false,
+    currentPage,
+    pagination = false,
+}: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -94,26 +106,26 @@ export function DataTable<TData, TValue>({ columns, data, className }: DataTable
     const isFiltered = table.getState().columnFilters.length > 0;
     return (
         <div className={cn(className)}>
-            {/* <div className="flex justify-between items-center">
-                <div className="flex items-center py-4">
-                    <Input
-                        placeholder="Filtrado por nombre..."
-                        value={(table.getColumn("nombreCompleto")?.getFilterValue() as string) ?? ""}
-                        onChange={event => table.getColumn("nombreCompleto")?.setFilterValue(event.target.value)}
-                        className="max-w-sm !outline-none !focus:outline-none !ring-0 !ring-offset-0"
-                    />
+            <div className="flex justify-between items-center">
+                {searchBar ? (
+                    <div className="flex items-center py-4">
+                        <Input
+                            placeholder="Filtrado por nombre..."
+                            value={(table.getColumn("nombreCompleto")?.getFilterValue() as string) ?? ""}
+                            onChange={event => table.getColumn("nombreCompleto")?.setFilterValue(event.target.value)}
+                            className="max-w-sm !outline-none !focus:outline-none !ring-0 !ring-offset-0"
+                        />
 
-                    {table.getColumn("nombreCompleto") && <DataTableFacetedFilter column={table.getColumn("status")} title="Status" options={statuses} />}
-                    {table.getColumn("email") && <DataTableFacetedFilter column={table.getColumn("priority")} title="Priority" options={priorities} />}
-                    {isFiltered && (
-                        <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
-                            Reset
-                        </Button>
-                    )}
-                </div>
+                        {isFiltered && (
+                            <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
+                                Borrar
+                            </Button>
+                        )}
+                    </div>
+                ) : null}
 
-                <DataTableViewOptions table={table} />
-            </div> */}
+                {toggleColumns ? <DataTableViewOptions table={table} /> : null}
+            </div>
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
@@ -152,7 +164,7 @@ export function DataTable<TData, TValue>({ columns, data, className }: DataTable
                     </TableBody>
                 </Table>
             </div>
-            {/* <DataTablePagination table={table} /> */}
+            {pagination ? <DataTablePagination table={table} currentPage={currentPage} /> : null}
         </div>
     );
 }

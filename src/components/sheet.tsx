@@ -33,7 +33,6 @@ export function SheetDemo({ cursoData }: { cursoData: Curso }) {
                 </SheetHeader>
                 <form action={handleSubmit} className=" space-y-4 py-4">
                     <SelectNameCourse />
-
                     <div className="space-y-1">
                         <Label htmlFor="ciclo">Ciclo Lectivo</Label>
                         <Input
@@ -48,7 +47,7 @@ export function SheetDemo({ cursoData }: { cursoData: Curso }) {
 
                     <div>
                         <SheetFooter className="flex gap-2">
-                            <SheetClose>
+                            <SheetClose asChild>
                                 <DeleteButton id={cursoData.id} entity="cursos">
                                     Eliminar curso
                                 </DeleteButton>
