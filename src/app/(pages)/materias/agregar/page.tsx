@@ -1,5 +1,5 @@
-import CreateSignatureForm from "@/components/materias/create-signature-form";
-import { getPlanesDeEstudio } from "@/components/plan-de-estudio/api/get";
+import CreateSignatureForm from "@/app/(pages)/materias/components/create-signature-form";
+import { getPlanesDeEstudio } from "@/app/(pages)/plan-de-estudio/api/get";
 
 import React from "react";
 

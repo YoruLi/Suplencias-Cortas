@@ -1,4 +1,4 @@
-import { CreateCourse } from "@/components/cursos/create-course";
+import { CreateCourse } from "@/app/(pages)/cursos/components/create-course";
 import React from "react";
 
 type Props = {

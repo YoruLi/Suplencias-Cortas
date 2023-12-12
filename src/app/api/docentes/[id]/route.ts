@@ -1,4 +1,5 @@
 import { conn } from "@/libs/mysql/db";
+import { HttpStatus } from "@/utils/errors";
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
@@ -25,5 +26,19 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
                 return NextResponse.json({ error: "Ha ocurrido un error al intentar eliminar el docente", status: 500 });
             }
         }
+    }
+}
+
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
+    const data = await req.json();
+    const objectData = {
+        ...data,
+    };
+    try {
+        const result = await conn.query("UPDATE Docentes SET ? WHERE idDocentes = ?", [objectData, params.id]);
+        await conn.end();
+        return NextResponse.json({ message: "Se ha actualizado el docente con éxito", data: result }, { status: HttpStatus.OK });
+    } catch (error) {
+        return NextResponse.json({ error }, { status: HttpStatus.INTERNAL_SERVER_ERROR });
     }
 }

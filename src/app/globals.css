@@ -85,6 +85,7 @@
 select::-webkit-scrollbar {
     display: none;
 }
+
 @layer base {
     .back-image {
         background-image: url("../../public/imgs/image-1.jpg");

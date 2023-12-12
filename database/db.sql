@@ -60,6 +60,7 @@ CREATE TABLE `cargos` (
   `horario` varchar(50) DEFAULT NULL,
   `estado` varchar(45) DEFAULT 'Asignado',
   `suplenteDe` varchar(255) DEFAULT NULL,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idCargos`),
   KEY `idDocente_idx` (`docenteId`),
   KEY `codigoMateria_idx` (`codigoMateria`),
@@ -68,9 +69,6 @@ CREATE TABLE `cargos` (
   CONSTRAINT `cursoId` FOREIGN KEY (`cursoId`) REFERENCES `cursos` (`id`) ON DELETE CASCADE,
   CONSTRAINT `docenteId` FOREIGN KEY (`docenteId`) REFERENCES `docentes` (`idDocentes`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-
-
-
 
 CREATE TABLE `cargosacubrir` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -180,17 +178,17 @@ END
 DELIMITER ;
 
 
-DELIMITER //
-CREATE TRIGGER after_update_cargo
-AFTER UPDATE ON cargos
-FOR EACH ROW  
-BEGIN
-    IF OLD.estado <> NEW.estado THEN
-        INSERT INTO cargosacubrir (cargoId) VALUES (OLD.idCargos);
-    END IF;
-END;
-//
-DELIMITER;
+        DELIMITER //
+        CREATE TRIGGER after_update_cargo
+        AFTER UPDATE ON cargos
+        FOR EACH ROW  
+        BEGIN
+            IF OLD.estado <> NEW.estado THEN
+                INSERT INTO cargosacubrir (cargoId) VALUES (OLD.idCargos);
+            END IF;
+        END;
+        //
+        DELIMITER;
 
 
 

@@ -3,14 +3,14 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { MenuItem } from "@mui/material";
 
 import React, { useEffect } from "react";
-import { columns } from "./columns";
+import { columns } from "./columns-candidate";
 
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
 
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/utils/get-error-message";
-import { updateCargos, updateCargoToCandidate } from "../../../../../actions/update-cargo";
+import { updateCargos, updateCargoToCandidate } from "../actions/update-cargo";
 
 type CandidatesSchema = {
     candidates: boolean;
@@ -47,7 +47,7 @@ export default function Candidates({ cargoId }: { cargoId: string }) {
     const submit = async e => {
         e.preventDefault();
         const checkbox = e.target.candidate;
-        const checkedCheckbox = checkbox.length > 1 ? Array.from(checkbox).find(input => input.type === "checkbox" && input?.checked) : checkbox;
+        const checkedCheckbox = checkbox?.length > 1 ? Array.from(checkbox).find(input => input.type === "checkbox" && input?.checked) : checkbox;
         const validated = candidateSchema.safeParse(checkedCheckbox?.checked);
         if (!validated.success) {
             return toast.error(getErrorMessage(validated.error.issues[0].message));

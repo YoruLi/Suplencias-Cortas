@@ -1,6 +1,6 @@
 import React from "react";
 
-import AddTeacher from "@/components/add-teacher";
+import AddTeacher from "@/app/(pages)/docentes/components/add-teacher";
 import { getSession } from "@/data/getSession";
 import { redirect } from "next/navigation";
 

@@ -1,5 +1,6 @@
-import { getMaterias } from "@/components/materias/api/get-materias";
-import SheetItem from "@/components/plan-de-estudio/sheet-item";
+import { getMaterias } from "@/app/(pages)/materias/api/get-materias";
+import SheetItem from "@/app/(pages)/plan-de-estudio/components/sheet-item";
+import Title from "@/components/ui/title";
 
 import React from "react";
 
@@ -9,7 +10,7 @@ export default async function page() {
 
     return (
         <>
-            <h2 className="text-2xl font-telex tracking-widest py-4">Materias</h2>
+            <Title className=" text-4xl font-normal text-main">Materias</Title>
             <div className=" w-full gap-6  grid-cols-signatures grid">
                 {materias.map((materia, index) => (
                     <SheetItem materia={materia} key={materia.codigoMateria} />

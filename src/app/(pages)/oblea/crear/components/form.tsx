@@ -1,6 +1,6 @@
 "use client";
-import { AutoCompleteField } from "@/components/auto-complete-field";
-import SubmitButton from "@/components/submit-button";
+import { AutoCompleteField } from "@/components/elements/auto-complete-field";
+import SubmitButton from "@/components/elements/submit-button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import ErrorMessage from "@/components/ui/error-message";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { fetcher } from "@/utils/fetch-url";
+import Title from "@/components/ui/title";
 
 type FormSchema = {
     docentes: string;
@@ -75,7 +76,8 @@ export default function ObleaForm({ signature }: { signature: any }) {
             onSubmit={handleSubmit(create)}
             className="max-w-lg grid place-items-center mx-auto gap-1 w-full h-[calc(100vh-64px)]  [&>div>div>span]:bg-white relative ´[&>div>div>input]:relative [&>div>div>input]:text-black "
         >
-            <div className="w-full space-y-3  ">
+            <div className="w-full space-y-3 shadow-2xl p-10 shadow-slate-300 rounded border border-slate-300/30  ">
+                <Title className="text-center">Docentes / Crear Oblea</Title>
                 <AutoCompleteField name={"docentes"} setValueForm={setValue} control={control} placeholder="Seleccionar docente" />
                 <ErrorMessage error={errors.docentes} />
                 <MateriaDemo signature={signature} register={register} errors={errors} setValueForm={setValue} />

@@ -29,10 +29,9 @@ export default function page() {
         return redirect("/plan-de-estudio");
     };
     return (
-        <>
-            <Title>Agregar Plan de Estudio</Title>
-
-            <form action={createPlan} className="flex flex-col gap-3 w-full max-w-lg">
+        <div className="mx-auto grid  justify-items-center items-center h-screen w-full">
+            <form action={createPlan} className="flex flex-col gap-3 w-full max-w-md text-center">
+                <Title>Agregar Plan de Estudio</Title>
                 <Input placeholder="Nombre del plan..." name="nombre" className="!outline-none !focus:outline-none !ring-0 !ring-offset-0" />
                 <Textarea
                     rows={4}
@@ -46,10 +45,9 @@ export default function page() {
                     placeholder={"Resolucion del plan..."}
                     className="!outline-none !focus:outline-none !ring-0 !ring-offset-0 resize-none"
                 />
-                <div>
-                    <Button type="submit">Crear Plan</Button>
-                </div>
+
+                <Button type="submit">Crear Plan</Button>
             </form>
-        </>
+        </div>
     );
 }

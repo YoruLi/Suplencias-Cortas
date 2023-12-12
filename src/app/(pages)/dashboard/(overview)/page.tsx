@@ -1,8 +1,8 @@
-import Cards from "@/components/bitacora/cards";
+import Cards from "@/app/(pages)/dashboard/bitacora/cards";
 
-import Table from "@/components/bitacora/data-table";
-import CardLoader from "@/components/bitacora/loader";
-import { TableLoader } from "@/components/dashboard-loader";
+import Table from "@/app/(pages)/dashboard/bitacora/data-table";
+import CardLoader from "@/app/(pages)/dashboard/bitacora/loader";
+import { TableLoader } from "@/app/(pages)/dashboard/(overview)/components/dashboard-loader";
 
 import Title from "@/components/ui/title";
 
@@ -24,8 +24,7 @@ export default async function page({
     return (
         <div className="space-y-10">
             <div className="mx-auto">
-                <Title>Dashboard</Title>
-
+                <Title className=" text-4xl font-normal text-main">Dashboard</Title>
                 <React.Suspense fallback={<CardLoader />}>
                     <Cards />
                 </React.Suspense>

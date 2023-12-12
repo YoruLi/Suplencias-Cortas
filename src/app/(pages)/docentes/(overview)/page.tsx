@@ -16,7 +16,7 @@ export default async function page({
     const currentPage = Number(searchParams?.currentPage) || 1;
     return (
         <div className=" h-full w-full  flex flex-col gap-4  relative overflow-hidden">
-            <Title>Docentes</Title>
+            <Title className=" text-4xl font-normal text-main">Docentes</Title>
 
             <Suspense key={currentPage} fallback={<TableLoader />}>
                 <TeachersTable currentPage={currentPage} pages={pages} />

@@ -1,8 +1,9 @@
-import CreateForm from "@/components/cargos/create-form";
+import CreateForm from "@/app/(pages)/cargos/components/create-form";
 
-import { getCursos } from "@/components/cursos/api/get-cursos";
+import { getCursos } from "@/app/(pages)/cursos/api/get-cursos";
 
-import { getMateriasDocente } from "@/components/materias/api/get-materias";
+import { getMateriasDocente } from "@/app/(pages)/materias/api/get-materias";
+import Title from "@/components/ui/title";
 
 import React from "react";
 
@@ -18,12 +19,13 @@ export default async function Page({
     const courses = coursesPromise.status === "fulfilled" ? coursesPromise.value : [];
     const signature = signaturesPromise.status === "fulfilled" ? signaturesPromise.value : [];
 
-    console.log({ signature });
     return (
         <>
             <div className="flex flex-col space-y-4 justify-center items-center h-full  min-h-[calc(100dvh-56px)] mx-auto  w-full max-w-xl">
-                <h2 className="text-2xl font-telex tracking-widest">Agregar Cargo</h2>
-                <CreateForm courses={courses} signature={signature} />
+                <div className="shadow-2xl shadow-slate-300 border border-slate-300/30 p-10 rounded">
+                    <Title className="text-center">Agregar Cargo</Title>
+                    <CreateForm courses={courses} signature={signature} />
+                </div>
             </div>
         </>
     );

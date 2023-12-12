@@ -10,7 +10,7 @@ export default async function page() {
 
     return (
         <>
-            <Title>Docentes / Oblea</Title>
+            <Title className="text-4xl font-normal text-main">Docentes / Oblea</Title>
 
             <div className="flex flex-col gap-3">
                 {obleas.map(oblea => {

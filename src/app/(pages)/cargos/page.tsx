@@ -1,12 +1,20 @@
-import { getCargos } from "@/components/cargos/api/get-cargos";
-import { columns } from "@/components/cargos/columns";
-import { DataTable } from "@/components/cargos/data-table";
-
 import React from "react";
+import Table from "./components/table";
+import { TableLoader } from "../dashboard/(overview)/components/dashboard-loader";
+import Title from "@/components/ui/title";
 
-export default async function page() {
-    const cargos = await getCargos();
+export default async function page({
+    searchParams,
+}: {
+    searchParams: {
+        currentPage?: string;
+        pages?: string;
+    };
+}) {
+    const pages = Number(searchParams?.pages) || 10;
+    const currentPage = Number(searchParams?.currentPage) || 1;
 
+    // //////////////////////////////////////////////////////////////////////////
     // const getCargosVacantes = async () => {
     //     try {
     //         const res = await fetch(`http://localhost:3000/api/cargos-vacantes`, {
@@ -24,11 +32,16 @@ export default async function page() {
 
     // const cargosACubrir = await getCargosVacantes();
 
+    // CREAR VENTANA CARGOS VACANTES
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
     return (
         <div className=" h-full w-full  flex flex-col gap-4  relative overflow-hidden">
-            <h2 className="text-2xl font-telex tracking-widest py-4">Cargos</h2>
-
-            <DataTable columns={columns} data={cargos} />
+            <Title className=" text-4xl font-normal text-main">Cargos</Title>
+            <React.Suspense key={currentPage + pages} fallback={<TableLoader />}>
+                <Table currentPage={currentPage} pages={pages} />
+            </React.Suspense>
         </div>
     );
 }

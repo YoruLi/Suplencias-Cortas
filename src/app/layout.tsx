@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 
-import Sidebar from "@/components/sidebar";
+import Sidebar from "@/components/sidebar/sidebar";
 
 import { getSession } from "../data/getSession";
 import { Toaster } from "react-hot-toast";

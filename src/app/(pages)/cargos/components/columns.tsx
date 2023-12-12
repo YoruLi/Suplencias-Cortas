@@ -1,54 +1,48 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-
-import { Checkbox } from "@/components/ui/checkbox";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "../../../../components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { sendEmail } from "../../../../../actions/send-email";
-import toast from "react-hot-toast";
-import { getErrorMessage } from "@/utils/get-error-message";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "../../../../components/ui/dropdown-menu";
+
+import { DeleteCargo } from "./delete-cargo";
+import { EditTeacherPosition } from "./edit-teacher-position";
+import Candidates from "@/app/(pages)/cargos/components/candidates";
 
 export const columns: ColumnDef<CargoResponse>[] = [
     {
-        id: "select",
-        cell: ({ row }) => (
-            <Checkbox
-                name="candidate"
-                checked={row.getIsSelected()}
-                onCheckedChange={value => {
-                    row.toggleSelected(!!value);
-                }}
-                value={row.original.candidatoId}
-                aria-label="Select row"
-                className="mx-auto grid place-content-center"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
-    {
-        accessorKey: "nombreCompleto",
+        accessorKey: "nombreDocente",
         header: "Docente",
     },
     {
-        accessorKey: "email",
-        header: "Email",
+        accessorKey: "nombreCurso",
+        header: "Curso",
     },
     {
-        accessorKey: "tel",
-        header: "Telefono",
+        accessorKey: "nombreMateria",
+        header: "Materia",
     },
     {
-        accessorKey: "score",
-        header: "Puntaje",
+        accessorKey: "dias",
+        header: "Dias",
+    },
+    {
+        accessorKey: "horario",
+        header: "Horario",
+    },
+    {
+        accessorKey: "estado",
+        header: "Estado",
+    },
+
+    {
+        accessorKey: "titular",
+        header: "Suplente de",
     },
     {
         id: "actions",
         cell: ({ row }) => {
-            const candidates = row.original;
-            const emailSent = candidates.emailSent === 1;
+            const cargos = row.original;
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -57,25 +51,11 @@ export const columns: ColumnDef<CargoResponse>[] = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                            disabled={emailSent}
-                            className={`${emailSent ? "text-red-700 font-bold" : ""}`}
-                            onClick={async () => {
-                                try {
-                                    const result = await sendEmail(candidates);
-
-                                    toast.success(result.message, {
-                                        className: "border border-main",
-                                    });
-                                } catch (error) {
-                                    toast.error(getErrorMessage(error));
-                                }
-                            }}
-                        >
-                            {emailSent ? "Email ya enviado" : " Mandar email"}
-                        </DropdownMenuItem>
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <Candidates cargoId={cargos.idCargos} />
+                        <EditTeacherPosition cargo={cargos} />
+                        <DeleteCargo cargoId={cargos.idCargos} entity="cargos" />
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

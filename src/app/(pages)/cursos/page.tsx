@@ -1,7 +1,8 @@
-import { getCursos } from "@/components/cursos/api/get-cursos";
-import { SheetDemo } from "@/components/sheet";
+import { getCursos } from "@/app/(pages)/cursos/api/get-cursos";
+import { SheetDemo } from "@/app/(pages)/cursos/components/sheet";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Title from "@/components/ui/title";
 import Link from "next/link";
 import React from "react";
 
@@ -18,7 +19,7 @@ export default async function page({ searchParams }: Props) {
 
     return (
         <div className="w-full h-full flex gap-4 flex-col">
-            <h2 className="text-2xl font-telex tracking-widest py-4">Cursos</h2>
+            <Title className=" text-4xl font-normal text-main">Cursos</Title>
 
             <Tabs defaultValue="cursos" className="flex flex-col items-center gap-4">
                 <TabsList>

@@ -1,1 +1,0 @@
-const getCandidatoById = (id: string) => {};
