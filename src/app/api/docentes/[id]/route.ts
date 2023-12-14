@@ -1,5 +1,6 @@
 import { conn } from "@/libs/mysql/db";
-import { HttpStatus } from "@/utils/errors";
+import { ER_PARSE_ERROR, HttpResponse, HttpStatus } from "@/utils/errors";
+import { getErrorMessage } from "@/utils/get-error-message";
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
@@ -31,14 +32,28 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
     const data = await req.json();
+
     const objectData = {
-        ...data,
+        ...(data.fullname && { nombreCompleto: data.fullname }),
+        ...(data.email && { email: data.email }),
+        ...(data.tel && { tel: data.tel }),
+        ...(data.dni && { dni: data.dni }),
+        ...(data.localidad && { localidad: data.localidad }),
     };
+    console.log(objectData);
+    if (Object.keys(data).length === 0) {
+        throw new ER_PARSE_ERROR("Verifica los datos ingresados");
+    }
     try {
         const result = await conn.query("UPDATE Docentes SET ? WHERE idDocentes = ?", [objectData, params.id]);
+
         await conn.end();
+
         return NextResponse.json({ message: "Se ha actualizado el docente con éxito", data: result }, { status: HttpStatus.OK });
     } catch (error) {
-        return NextResponse.json({ error }, { status: HttpStatus.INTERNAL_SERVER_ERROR });
+        if (error instanceof ER_PARSE_ERROR) {
+            return new HttpResponse().ER_PARSE_ERROR();
+        }
+        return new HttpResponse().InternalServerError();
     }
 }

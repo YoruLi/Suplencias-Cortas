@@ -19,7 +19,6 @@ export const getPaginationCargos = async ({ currentPage, pages }: { currentPage:
             `);
         revalidatePath("/cargos");
 
-        console.log({ cargos });
         return cargos;
     } catch (error) {
         return [];

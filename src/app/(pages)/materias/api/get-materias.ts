@@ -22,13 +22,15 @@ export const getMateriasDocente = async (docenteId: string) => {
         return [];
     }
     try {
-        const result = await conn.query(`SELECT oblea.materias, materias.*
-FROM oblea
-JOIN docentes ON oblea.docenteId = docentes.idDocentes
-JOIN materias on oblea.materias = materias.codigoMateria
-WHERE docentes.idDocentes = '${docenteId}';
+        const result = await conn.query(`
+        SELECT oblea.materias, materias.*
+        FROM oblea
+        JOIN docentes ON oblea.docenteId = docentes.idDocentes
+        JOIN materias on oblea.materias = materias.codigoMateria
+        WHERE docentes.idDocentes = '${docenteId}'
 
 `);
+
         await conn.end();
         return result;
     } catch (error) {

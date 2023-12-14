@@ -69,13 +69,13 @@ export const AutoCompleteField = <TField extends FieldValues>(props: RHFAutocomp
             <Controller
                 control={props.control}
                 name={props.name}
-                rules={{ required: "Este campo es requerido" }}
                 render={({ field, fieldState: { error } }) => {
                     const { onChange, value, ref } = field;
 
                     return (
                         <>
                             <AutoComplete
+                                disablePortal
                                 id="teacher-demo"
                                 autoComplete
                                 filterOptions={x => x}
@@ -96,7 +96,7 @@ export const AutoCompleteField = <TField extends FieldValues>(props: RHFAutocomp
                                 onInputChange={(_, newInputValue) => {
                                     setInputValue(newInputValue);
                                 }}
-                                renderInput={params => <TextField size="small" {...params} label={props.placeholder} inputRef={ref} />}
+                                renderInput={params => <TextField {...params} label={props.placeholder} inputRef={ref} />}
                                 renderOption={({ ...props }, option) => {
                                     return (
                                         <li {...props}>
@@ -106,7 +106,6 @@ export const AutoCompleteField = <TField extends FieldValues>(props: RHFAutocomp
                                                 </Grid>
                                                 <Grid item sx={{ width: "calc(100% - 44px)", wordWrap: "break-word" }}>
                                                     <Box component="span">{option.nombreCompleto}</Box>
-
                                                     <Typography variant="body2" color="text.secondary">
                                                         {option.nombreCompleto}
                                                     </Typography>

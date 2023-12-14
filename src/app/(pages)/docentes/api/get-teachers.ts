@@ -1,14 +1,15 @@
 "use server";
 
 import { conn } from "@/libs/mysql/db";
-import { fetcher } from "@/utils/fetch-url";
+
 import { revalidatePath } from "next/cache";
 
 export const getTeachers = async ({ query }: { query?: string | null }): Promise<Teacher[]> => {
     let url;
 
-    if (typeof query === "string" || query === undefined) url = `http://localhost:3000/api/docentes?query=${query}`;
-    else url = `http://localhost:3000/api/docentes`;
+    if (typeof query === "string" || query === undefined) {
+        url = `http://localhost:3000/api/docentes?query=${query}`;
+    }
 
     try {
         const res = await fetch(url, {
@@ -16,8 +17,7 @@ export const getTeachers = async ({ query }: { query?: string | null }): Promise
         });
 
         const result = await res.json();
-        console.log(result);
-        revalidatePath("/docentes");
+
         return result;
     } catch (error) {
         return [];

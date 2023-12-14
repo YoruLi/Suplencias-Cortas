@@ -14,8 +14,8 @@ export default async function StudyPlanItem() {
     const planes = await getPlanesDeEstudio();
 
     return (
-        <div className="flex flex-col items-center min-h-screen ">
-            <Title className="text-center text-4xl font-normal text-main">Planes de estudio</Title>
+        <div className="flex flex-col  min-h-screen ">
+            <Title className="text-start text-4xl font-normal text-main">Planes de estudio</Title>
 
             <div className="grid gap-6 mb-8 flex-wrap md:grid-cols-2 lg:grid-cols-3">
                 {planes.map(plan => {

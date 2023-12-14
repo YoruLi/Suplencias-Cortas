@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createTeachingPosition } from "../actions/create-teaching-position";
+import { createTeachingPosition } from "../../actions/create-teaching-position";
 
 import { AutoCompleteField } from "@/components/elements/auto-complete-field";
 
@@ -47,14 +47,13 @@ export default function CreateForm({ signature, courses }: { signature: Materia[
     });
 
     const handleCreateTeacherPosition = async (data: FieldValues) => {
-        console.log(data);
         const validatedData = schema.safeParse(data);
 
         if (!validatedData.success) {
             console.log(validatedData.error);
             return;
         }
-
+        console.log(validatedData.data);
         await createTeachingPosition(validatedData.data);
     };
 

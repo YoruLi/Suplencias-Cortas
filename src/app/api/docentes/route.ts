@@ -37,8 +37,7 @@ export async function POST(req: Request) {
     const fullname = `${name} ${lastname}`;
     const validatedData = teacherValidation.safeParse(data);
     if (!validatedData.success) {
-        console.log(validatedData.error);
-        return NextResponse.json({ message: "Asegúrate de completar antes de continuar", status: 400, error: validatedData.error });
+        return NextResponse.json({ message: "Asegúrate de completar antes de continuar", error: validatedData.error }, { status: 400 });
     }
     try {
         const objectData = {
@@ -59,23 +58,9 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ message: "Docente creado con exito", status: 200, data: newTeacher });
     } catch (error: any) {
-        console.log(error);
         if (error.code === "ER_BAD_FIELD_ERROR") {
-            return NextResponse.json({ message: "Asegúrate de completar antes de continuar", status: 400, error: error });
+            return NextResponse.json({ message: "Asegúrate de completar antes de continuar", error }, { status: 400 });
         }
-        return NextResponse.json({ message: "Se produjo un error", status: 400, error: error });
+        return NextResponse.json({ message: "Error interno en el servidor", error }, { status: 500 });
     }
-}
-
-export async function PUT(req: Request) {
-    const data = await req.json();
-    const objectData = {
-        ...data,
-        idDocentes: data.idDocentes,
-    };
-    const res = await conn.query("UPDATE Docentes SET ? WHERE idDocentes = ?", [objectData, data.idDocentes]);
-    console.log({ res });
-    await conn.end();
-
-    return NextResponse.json({ res });
 }

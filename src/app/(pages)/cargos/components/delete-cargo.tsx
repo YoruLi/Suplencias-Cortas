@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+
 import { deleteAction } from "../../../../../actions/delete-action";
 import toast from "react-hot-toast";
 import { MenuItem } from "@mui/material";
@@ -36,7 +36,7 @@ export function DeleteCargo({ cargoId, entity }: { cargoId: string; entity: stri
                             });
                         }}
                     >
-                        Coninuar
+                        Continuar
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

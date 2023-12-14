@@ -1,19 +1,13 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "../../../../components/ui/dropdown-menu";
-import { Button } from "../../../../components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+
+import { DataTableColumnHeader } from "@/components/ui/data-columns-header";
 import { DeleteCargo } from "../../cargos/components/delete-cargo";
-import EditTeacherDialog from "./dialog-edit-teacher";
-import { DataTableColumnHeader } from "../../../../components/ui/data-columns-header";
+import EditTeacherDialog from "./edit-teacher-dialog";
 
 export const columns: ColumnDef<Teacher>[] = [
     {
@@ -44,17 +38,12 @@ export const columns: ColumnDef<Teacher>[] = [
         accessorKey: "localidad",
         header: "Localidad",
     },
-    // {
-    //     accessorKey: "score",
-    //     header: ({ column }) => {
-    //         return <DataTableColumnHeader column={column} title="Puntaje" />;
-    //     },
-    // },
+
     {
         id: "actions",
         cell: ({ row }) => {
             const teacher = row.original;
-            console.log(teacher);
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -63,13 +52,22 @@ export const columns: ColumnDef<Teacher>[] = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
+                    {/* 
+                     <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(teacher.nombreCompleto)}>Copiar docente</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DeleteCargo cargoId={teacher.idDocentes} entity="docentes" />
+                       <EditTeacherDialog teacher={teacher} /> 
+                    </DropdownMenuContent>  */}
+
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => navigator.clipboard.writeText(teacher.nombreCompleto)}>Copiar docente</DropdownMenuItem>
                         <DropdownMenuSeparator />
 
+                        <EditTeacherDialog teacher={teacher} />
                         <DeleteCargo cargoId={teacher.idDocentes} entity="docentes" />
-                        {/* <EditTeacherDialog teacher={teacher} /> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

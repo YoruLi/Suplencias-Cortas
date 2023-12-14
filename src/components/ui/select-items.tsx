@@ -18,7 +18,7 @@ export function SelectItems(props: SelectItemsPros) {
                 },
             })}
         >
-            <SelectTrigger className="min-w-[180px]  remove-ring">
+            <SelectTrigger className="min-w-[180px] remove-ring">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent className=" overflow-hidden overflow-y-auto max-h-[200px] w-full">

@@ -1,23 +1,24 @@
 "use server";
 import { fetcher } from "@/utils/fetch-url";
+import { getErrorMessage } from "@/utils/get-error-message";
 import { revalidatePath } from "next/cache";
 
 export const updateCargos = async (data: FormData, cargo: Cargo) => {
-    const formData = Object.fromEntries(data);
-
     const cargosUpdateData = {
-        id: cargo.idCargos,
-        ...formData,
+        ...data,
     };
+    try {
+        const result = await fetcher({
+            fetchUrl: `cargos/${cargo.idCargos}`,
+            method: "PUT",
+            data: JSON.stringify(cargosUpdateData),
+        });
 
-    const result = fetcher({
-        fetchUrl: `cargos/${cargo.idCargos}`,
-        method: "PUT",
-        data: JSON.stringify(cargosUpdateData),
-    });
-
-    revalidatePath(`/cargos`);
-    return result;
+        revalidatePath("/cargos");
+        return { result, error: null };
+    } catch (error) {
+        return { result: null, error: getErrorMessage(error) };
+    }
 };
 
 export const updateCargoToCandidate = async ({ candidatoId, cargoId }: { candidatoId: string; cargoId: string }) => {

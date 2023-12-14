@@ -1,4 +1,4 @@
-import CreateForm from "@/app/(pages)/cargos/components/create-form";
+import CreateForm from "@/app/(pages)/cargos/components/form/create-form";
 
 import { getCursos } from "@/app/(pages)/cursos/api/get-cursos";
 

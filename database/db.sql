@@ -178,20 +178,6 @@ END
 DELIMITER ;
 
 
-        DELIMITER //
-        CREATE TRIGGER after_update_cargo
-        AFTER UPDATE ON cargos
-        FOR EACH ROW  
-        BEGIN
-            IF OLD.estado <> NEW.estado THEN
-                INSERT INTO cargosacubrir (cargoId) VALUES (OLD.idCargos);
-            END IF;
-        END;
-        //
-        DELIMITER;
-
-
-
 
 DROP TRIGGER IF EXISTS tr_Bitacora_Insert;
 DELIMITER //

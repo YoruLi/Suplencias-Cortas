@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 
 import DemoMultiList from "../ui/demo-multi-list";
 import { daysOfWeek } from "@/utils/utils";
+
 const hours = [
     {
         label: "1ra-4ta",
@@ -28,7 +29,7 @@ const hours = [
     },
 ];
 
-export function CalendarDemo({ errors, setValueForm }: { register: any; errors: any; setValueForm: any }) {
+export function CalendarDemo({ errors, setValueForm, register }: { register: any; errors: any; setValueForm: any }) {
     const [selectedDays, setSelectedDays] = React.useState<string[]>([]);
     const [listData, setListData] = React.useState<{ [day: string]: string[] }>({});
 
@@ -43,7 +44,7 @@ export function CalendarDemo({ errors, setValueForm }: { register: any; errors: 
             ...prevListData,
             [day]: data,
         }));
-
+        console.log({ ...listData, [day]: data });
         setValueForm("hours", { ...listData, [day]: data });
     };
 
@@ -60,7 +61,14 @@ export function CalendarDemo({ errors, setValueForm }: { register: any; errors: 
                                     selectedDays.includes(day) ? "bg-[#0F172A] text-white" : "bg-white text-black hover:bg-[#0F172A] hover:text-white "
                                 }`}
                             >
-                                <input type="checkbox" name="days" value={day} onClick={() => toggleDay(day)} className="opacity-0 absolute inset-0" />
+                                <input
+                                    type="checkbox"
+                                    name="days"
+                                    {...register("days")}
+                                    value={day}
+                                    onClick={() => toggleDay(day)}
+                                    className="opacity-0 absolute inset-0"
+                                />
                                 {day}
                             </Button>
                         ))}

@@ -10,38 +10,73 @@ export enum HttpStatus {
     FORBIDDEN = 403,
     INTERNAL_SERVER_ERROR = 500,
     ER_DUP_ENTRY = 409,
+    NO_CONTENT = 204,
 }
 
-export class HttpResponse {
+export class HttpResponse extends Error {
     OK(data?: any) {
-        return NextResponse.json({
-            status: HttpStatus.OK,
-            data: data,
-            error: "Success",
-        });
+        return NextResponse.json(
+            {
+                data: data,
+                error: "Success",
+            },
+            {
+                status: HttpStatus.OK,
+            }
+        );
     }
 
-    NotFound(data?: any) {
-        return NextResponse.json({
-            status: HttpStatus.NOT_FOUND,
-            data: data,
-            error: "Not found",
-        });
+    NotFound(data?: any, error?: string) {
+        return NextResponse.json(
+            {
+                ...(data && { data: data }),
+                error: error ?? "Not found",
+            },
+            {
+                status: HttpStatus.NOT_FOUND,
+            }
+        );
     }
 
     InternalServerError(data?: any) {
-        return NextResponse.json({
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            data: data,
-            error: "Internal server error",
-        });
+        return NextResponse.json(
+            {
+                data: data,
+                error: "Internal server error",
+            },
+            {
+                status: HttpStatus.INTERNAL_SERVER_ERROR,
+            }
+        );
     }
 
+    NoContent(data?: any) {
+        return NextResponse.json(
+            {
+                data: {},
+            },
+            {
+                status: HttpStatus.NO_CONTENT,
+            }
+        );
+    }
     ER_DUP_ENTRY(data?: any) {
         return NextResponse.json(
             {
                 data: data,
                 error: "Registro duplicado",
+            },
+            {
+                status: HttpStatus.ER_DUP_ENTRY,
+            }
+        );
+    }
+
+    ER_PARSE_ERROR(data?: any, error?: string) {
+        return NextResponse.json(
+            {
+                ...(data && { data: data }),
+                error: error ?? "Verifica la información ingresada",
             },
             {
                 status: HttpStatus.ER_DUP_ENTRY,
@@ -67,6 +102,8 @@ export class ErrorHandler extends Error {
         this.statusCode = statusCode;
         this.message = message;
     }
+
+    static NotFound() {}
 }
 
 interface ErrorResponse {
@@ -118,4 +155,53 @@ export function apiHandler(handler: ApiMethodHandlers) {
             errorHandler(err, res);
         }
     };
+}
+
+export class HttpError extends Error {
+    constructor({ message, name, statusCode }) {
+        super(message);
+        this.name = name;
+        this.statusCode = statusCode;
+        Error.captureStackTrace(this, HttpError);
+    }
+}
+
+export class HttpBadRequest extends HttpError {
+    constructor(message = "Bad request") {
+        super({
+            message,
+            name: "HttpBadRequest",
+            statusCode: htt.BAD_REQUEST,
+        });
+    }
+}
+
+export class HttpNotFound extends HttpError {
+    constructor(message = "Not Found") {
+        super({
+            message,
+            name: "HttpNotFound",
+            statusCode: HttpStatus.NOT_FOUND,
+        });
+    }
+}
+
+export class HttpInternalServerError extends HttpError {
+    constructor(message = "Internal server error") {
+        super({
+            message,
+            name: "HttpInternalServerError",
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        });
+    }
+}
+
+export class ER_PARSE_ERROR extends HttpError {
+    constructor(message = "Verificar información") {
+        super({
+            message,
+            name: "Er_Parse_Error",
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        });
+    }
 }

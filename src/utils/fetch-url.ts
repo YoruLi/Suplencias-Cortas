@@ -1,8 +1,6 @@
 "use server";
 import { headers } from "next/headers";
 
-import { getErrorMessage } from "./get-error-message";
-
 export const fetchUrl = (fetch: string) => {
     const host = headers().get("host");
     const protocol = process.env.NODE_ENV === "development" ? "http://" : "https://";
@@ -28,12 +26,14 @@ export const fetcher = async ({ fetchUrl, data, method }: { fetchUrl: string; da
 
         if (!response.ok) {
             const errorMessage = await response.text();
-            throw new Error(JSON.parse(errorMessage).error);
+
+            throw new Error(errorMessage);
         }
+
         const result = await response.json();
 
         return result;
     } catch (error) {
-        return getErrorMessage(error);
+        throw error;
     }
 };
