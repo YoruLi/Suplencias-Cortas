@@ -115,15 +115,15 @@ export function EditTeacherPosition({ cargo }: { cargo: CargoResponse }) {
     const submit = async data => {
         const { error } = await updateCargos(data, cargo);
         if (error) {
-            toast.error(error);
+            toast.error(JSON.parse(error).error);
         } else {
-            toast.success("El cargo se modificó éxito!");
+            toast.success("El cargo se modificó con éxito!");
         }
     };
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <MenuItem className="!text-sm !px-2 text-start">Editar cargo</MenuItem>
+                <MenuItem className="!text-sm !px-2 ">Editar cargo</MenuItem>
             </DialogTrigger>
             <DialogContent className="h-auto">
                 <Tabs className="max-w-lg space-y-4 p-2" defaultValue="informacion">
@@ -138,15 +138,15 @@ export function EditTeacherPosition({ cargo }: { cargo: CargoResponse }) {
                         <DialogTitle>Editar Cargo</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleSubmit(submit)}>
-                        <TabsContent value={"informacion"} className="grid grid-cols-2 gap-4">
+                        <TabsContent value={"informacion"} className="flex flex-col gap-3">
                             {fields.map(({ field, label }) => {
                                 return (
-                                    <>
-                                        <Label htmlFor={label} className="text-sm self-center ">
+                                    <div key={label} className="flex  gap-3 justify-between w-full">
+                                        <Label htmlFor={label} className="text-sm self-center flex-0 shrink-0 ">
                                             {label}
                                         </Label>
-                                        {field}
-                                    </>
+                                        <div className="w-full flex-1 flex-grow">{field}</div>
+                                    </div>
                                 );
                             })}
                         </TabsContent>

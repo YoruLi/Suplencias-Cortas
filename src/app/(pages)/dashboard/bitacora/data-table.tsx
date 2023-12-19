@@ -4,12 +4,12 @@ import { columns } from "./columns";
 
 import { conn } from "@/libs/mysql/db";
 import { revalidatePath } from "next/cache";
+import { MobileTable } from "../(overview)/components/mobile-table";
 
 const getBitacora = async ({ currentPage, pages }: { currentPage: number; pages: number }): Promise<Teacher[]> => {
     try {
         const offset = (Number(currentPage) - 1) * Number(pages);
 
-        console.log(pages, offset);
         const results = await conn.query(`
             SELECT *
             FROM bitacora
@@ -28,7 +28,7 @@ export default async function Table({ pages, currentPage }: { pages: number; cur
     const bitacora = await getBitacora({ currentPage, pages });
     return (
         <>
-            <DataTable columns={columns} data={bitacora} currentPage={currentPage} pagination={true} />
+            <DataTable columns={columns} data={bitacora} currentPage={currentPage} pagination={true} ShowMobile={MobileTable} />
         </>
     );
 }

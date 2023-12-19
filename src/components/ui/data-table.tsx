@@ -31,44 +31,8 @@ interface DataTableProps<TData, TValue> {
     searchBar?: boolean;
     currentPage: number;
     pagination?: boolean;
+    ShowMobile: any;
 }
-export const statuses = [
-    {
-        value: "backlog",
-        label: "Backlog",
-    },
-    {
-        value: "todo",
-        label: "Todo",
-    },
-    {
-        value: "in progress",
-        label: "In Progress",
-    },
-    {
-        value: "done",
-        label: "Done",
-    },
-    {
-        value: "canceled",
-        label: "Canceled",
-    },
-];
-
-export const priorities = [
-    {
-        label: "Low",
-        value: "low",
-    },
-    {
-        label: "Medium",
-        value: "medium",
-    },
-    {
-        label: "High",
-        value: "high",
-    },
-];
 
 export function DataTable<TData, TValue>({
     columns,
@@ -78,6 +42,7 @@ export function DataTable<TData, TValue>({
     searchBar = false,
     currentPage,
     pagination = false,
+    ShowMobile,
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -104,6 +69,7 @@ export function DataTable<TData, TValue>({
         },
     });
     const isFiltered = table.getState().columnFilters.length > 0;
+
     return (
         <div className={cn(className)}>
             <div className="flex justify-between items-center">
@@ -126,7 +92,7 @@ export function DataTable<TData, TValue>({
 
                 {toggleColumns ? <DataTableViewOptions table={table} /> : null}
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border hidden md:block">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map(headerGroup => (
@@ -147,7 +113,7 @@ export function DataTable<TData, TValue>({
                                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="">
                                     {row.getVisibleCells().map(cell => {
                                         return (
-                                            <TableCell className=" overflow-hidden text-ellipsis whitespace-nowrap " key={cell.id}>
+                                            <TableCell className=" overflow-hidden text-ellipsis whitespace-nowrap" key={cell.id}>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </TableCell>
                                         );
@@ -164,6 +130,9 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
+
+            {ShowMobile && <ShowMobile table={table} columns={columns} />}
+
             {pagination ? <DataTablePagination table={table} currentPage={currentPage} /> : null}
         </div>
     );

@@ -14,11 +14,11 @@ import { deleteAction } from "../../../../../actions/delete-action";
 import toast from "react-hot-toast";
 import { MenuItem } from "@mui/material";
 
-export function DeleteCargo({ cargoId, entity }: { cargoId: string; entity: string }) {
+export function DeleteCargo({ id, entity, title }: { id: string; entity: string; title: string }) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <MenuItem className="!text-sm !px-2 text-start">Eliminar cargo</MenuItem>
+                <MenuItem className="!text-sm !px-2">{title}</MenuItem>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
@@ -29,10 +29,12 @@ export function DeleteCargo({ cargoId, entity }: { cargoId: string; entity: stri
                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
                     <AlertDialogAction
                         onClick={() => {
-                            toast.promise(deleteAction(entity, cargoId), {
+                            toast.promise(deleteAction(entity, id), {
                                 loading: "Cargando...",
-                                success: "Se eliminó el cargo!",
-                                error: e => `Error: ${e.message}`,
+                                success: "Se eliminó con éxito!",
+                                error: e => {
+                                    return `Error: ${JSON.parse(e.message).error}`;
+                                },
                             });
                         }}
                     >

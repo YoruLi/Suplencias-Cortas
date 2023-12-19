@@ -41,7 +41,7 @@ export default function LoginForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full h-full mt-10 flex flex-col gap-8 self-start text-main [&>div>div>input]:text-black  [&>*]:border-main [&>div>div>span]:bg-white"
+            className="w-full h-full mt-10  flex flex-col gap-8 self-start text-main [&>div>div>input]:text-black  [&>*]:border-main [&>div>div>span]:bg-white"
         >
             <div>
                 <Input register={register} {...register("username")} name="username" placeholder="Nombre de usuario" />

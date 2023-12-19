@@ -9,16 +9,16 @@ function getMonthName(monthNumber: number) {
     const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     return months[monthNumber - 1];
 }
-export function Overview() {
+export function Overview({ dashboard }: { dashboard: string }) {
     const [totalTeachersPerMonth, setTotalTeachersPerMonth] = React.useState([]);
     const fetchData = React.useCallback(async () => {
         try {
-            const data = await getTotalTeachersPerMonth();
+            const data = await getTotalTeachersPerMonth({ dashboard });
             return data;
         } catch (error) {
             return [];
         }
-    }, []);
+    }, [dashboard]);
     React.useEffect(() => {
         fetchData().then(res => {
             const data = res.map(result => ({

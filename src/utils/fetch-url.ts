@@ -12,12 +12,12 @@ export const fetcher = async ({ fetchUrl, data, method }: { fetchUrl: string; da
     const url = process.env.FETCH_URL;
     const config = {
         ...(!data && { cache: "no-store" }),
+        method: method,
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
         ...(data && {
-            method: method,
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
             body: data,
         }),
     };

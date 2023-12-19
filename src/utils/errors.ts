@@ -85,27 +85,6 @@ export class HttpResponse extends Error {
     }
 }
 
-export const createError = function (name: string) {
-    return class ErrorHandler extends Error {
-        constructor(message = "Ha ocurrido un error inesperado!") {
-            super(message);
-
-            this.message = message;
-            this.name = name;
-        }
-    };
-};
-
-export class ErrorHandler extends Error {
-    constructor(message = "Ha ocurrido un error inesperado!", statusCode = 400) {
-        super(message);
-        this.statusCode = statusCode;
-        this.message = message;
-    }
-
-    static NotFound() {}
-}
-
 interface ErrorResponse {
     error: {
         message: string;

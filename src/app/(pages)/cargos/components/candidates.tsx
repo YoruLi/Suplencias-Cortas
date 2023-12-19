@@ -11,6 +11,7 @@ import { z } from "zod";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { updateCargos, updateCargoToCandidate } from "../actions/update-cargo";
+import { MobileTable } from "./mobile-table-candidates";
 
 type CandidatesSchema = {
     candidates: boolean;
@@ -67,7 +68,7 @@ export default function Candidates({ cargoId }: { cargoId: string }) {
 
                 <form onSubmit={e => submit(e)} className="w-full overflow-hidden flex flex-col justify-between">
                     <div className="h-[300px] overflow-hidden overflow-y-auto">
-                        <DataTable columns={columns} data={candidates} pagination={false} />
+                        <DataTable columns={columns} data={candidates} pagination={false} ShowMobile={MobileTable} />
                     </div>
                     <Button className="self-end">Guardar</Button>
                 </form>

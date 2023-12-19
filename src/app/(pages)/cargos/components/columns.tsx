@@ -51,11 +51,11 @@ export const columns: ColumnDef<CargoResponse>[] = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                    <DropdownMenuContent align="end" className="w-[140px] h-auto  ">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <Candidates cargoId={cargos.idCargos} />
                         <EditTeacherPosition cargo={cargos} />
-                        <DeleteCargo cargoId={cargos.idCargos} entity="cargos" />
+                        <DeleteCargo id={cargos.idCargos} entity="cargos" title="Eliminar cargo" />
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

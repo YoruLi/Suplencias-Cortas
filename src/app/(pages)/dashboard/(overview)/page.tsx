@@ -16,10 +16,13 @@ export default async function page({
     searchParams: {
         pages: number;
         currentPage: number;
+        dashboard: string;
     };
 }) {
     const pages = Number(searchParams?.pages) || 10;
     const currentPage = Number(searchParams?.currentPage) || 1;
+
+    const dashboard = searchParams.dashboard || "docentes";
 
     return (
         <div className="space-y-10">
@@ -33,10 +36,10 @@ export default async function page({
             <div className="flex flex-col gap-2">
                 <Card className="flex-[2] h-full rounded-lg border">
                     <CardHeader>
-                        <CardTitle>Docentes</CardTitle>
+                        <CardTitle>{dashboard.toLocaleUpperCase()}</CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
-                        <Overview />
+                        <Overview dashboard={dashboard} />
                     </CardContent>
                 </Card>
 

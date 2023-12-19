@@ -53,11 +53,11 @@ export function CalendarDemo({ errors, setValueForm, register }: { register: any
             <div className="space-y-3">
                 <div className="flex flex-col  w-full">
                     <label className="text-sm">Selecciona los días:</label>
-                    <div className="flex items-center justify-center mx-auto  gap-1 overflow-hidden flex-wrap ">
+                    <div className="flex items-start gap-0 lg:gap-1 justify-center  overflow-hidden flex-wrap ">
                         {daysOfWeek.map((day, index) => (
                             <Button
                                 key={index}
-                                className={`relative ${
+                                className={`relative !text-xs ${
                                     selectedDays.includes(day) ? "bg-[#0F172A] text-white" : "bg-white text-black hover:bg-[#0F172A] hover:text-white "
                                 }`}
                             >
@@ -67,7 +67,7 @@ export function CalendarDemo({ errors, setValueForm, register }: { register: any
                                     {...register("days")}
                                     value={day}
                                     onClick={() => toggleDay(day)}
-                                    className="opacity-0 absolute inset-0"
+                                    className="opacity-0 absolute inset-0 "
                                 />
                                 {day}
                             </Button>
@@ -75,7 +75,7 @@ export function CalendarDemo({ errors, setValueForm, register }: { register: any
                     </div>
                     {errors.hours && <p className="text-red-500 text-xs italic">{errors.hours && errors.hours.message?.toString()}</p>}
                 </div>
-                <p className="text-sm">Días seleccionados: </p>
+                {selectedDays.length > 0 ? <p className="text-sm">Días seleccionados: </p> : null}
                 {selectedDays.map((selectedDay, index) => (
                     <div key={selectedDay}>
                         <label>{selectedDay}:</label>

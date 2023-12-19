@@ -53,7 +53,7 @@ export default function EditTeacherDialog({ teacher }: { teacher: Teacher }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <MenuItem className="!text-sm !px-2 text-start">Editar cargo</MenuItem>
+                <MenuItem className="!text-sm !px-2 text-start">Editar docente</MenuItem>
             </DialogTrigger>
             <DialogContent className="h-auto">
                 <DialogHeader>

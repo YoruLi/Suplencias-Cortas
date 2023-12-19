@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Card({ plan }: { plan: any }) {
     return (
-        <div className="card bg-white shadow-lg rounded-lg overflow-hidden py-5">
+        <div className="card bg-white shadow ring-1 ring-black ring-opacity-5 rounded-lg overflow-hidden py-5">
             <div className="card-header p-4 flex items-center justify-between">
                 <p className="font-semibold text-lg">{plan.nombre}</p>
                 <BookIcon className="w-6 h-6" />

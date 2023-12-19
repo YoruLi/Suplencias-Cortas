@@ -52,22 +52,14 @@ export const columns: ColumnDef<Teacher>[] = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    {/* 
-                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(teacher.nombreCompleto)}>Copiar docente</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DeleteCargo cargoId={teacher.idDocentes} entity="docentes" />
-                       <EditTeacherDialog teacher={teacher} /> 
-                    </DropdownMenuContent>  */}
 
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => navigator.clipboard.writeText(teacher.nombreCompleto)}>Copiar docente</DropdownMenuItem>
-                        <DropdownMenuSeparator />
+                        <DropdownMenuSeparator className="bg-gray-300" />
 
                         <EditTeacherDialog teacher={teacher} />
-                        <DeleteCargo cargoId={teacher.idDocentes} entity="docentes" />
+                        <DeleteCargo id={teacher.idDocentes} entity="docentes" title="Eliminar docente" />
                     </DropdownMenuContent>
                 </DropdownMenu>
             );
