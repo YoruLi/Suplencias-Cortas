@@ -8,13 +8,15 @@ export async function GET(req: Request) {
     const query = searchParams.get("modalidad") as string;
 
     try {
-        let courses;
+        let courses: Curso[];
         if (query) {
-            console.log(query);
             courses = await conn.query(
                 "SELECT Cursos.*, Modalidades.nombre as modalidad FROM Cursos LEFT JOIN Modalidades ON Cursos.modalidadId = Modalidades.id WHERE Modalidades.nombre = ?",
                 [query]
             );
+
+            if (courses.length) {
+            }
         } else {
             courses = await conn.query("SELECT Cursos.*, Modalidades.nombre as modalidad FROM Cursos LEFT JOIN Modalidades ON Cursos.modalidadId = Modalidades.id");
         }

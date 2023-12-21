@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { deleteSession } from "../../../actions/delete-session";
+import { deleteSession } from "../../utils/actions/delete-session";
 import Icon from "../ui/icon";
 import svgs from "@/data/svgs";
 

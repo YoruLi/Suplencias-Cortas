@@ -2,33 +2,16 @@ import React from "react";
 import { DataTable } from "../../../../components/ui/data-table";
 import { columns } from "./columns";
 
-import { conn } from "@/libs/mysql/db";
-import { revalidatePath } from "next/cache";
 import { MobileTable } from "../(overview)/components/mobile-table";
-
-const getBitacora = async ({ currentPage, pages }: { currentPage: number; pages: number }): Promise<Teacher[]> => {
-    try {
-        const offset = (Number(currentPage) - 1) * Number(pages);
-
-        const results = await conn.query(`
-            SELECT *
-            FROM bitacora
-            ORDER BY bitacora.fecha DESC
-            LIMIT ${pages.toString()} OFFSET ${offset.toString()};
-            `);
-
-        revalidatePath("/dashboard");
-        return results;
-    } catch (error) {
-        return [];
-    }
-};
+import { fetchDashboardTotalPages, getBitacora } from "../api/get";
 
 export default async function Table({ pages, currentPage }: { pages: number; currentPage: number }) {
     const bitacora = await getBitacora({ currentPage, pages });
+    const totalPages = await fetchDashboardTotalPages();
+
     return (
         <>
-            <DataTable columns={columns} data={bitacora} currentPage={currentPage} pagination={true} ShowMobile={MobileTable} />
+            <DataTable columns={columns} data={bitacora} currentPage={currentPage} pagination={true} ShowMobile={MobileTable} totalPages={totalPages} />
         </>
     );
 }

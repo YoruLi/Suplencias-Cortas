@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { sendEmail } from "../../../../../actions/send-email";
+import { sendEmail } from "../../../../utils/actions/send-email";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/utils/get-error-message";
 

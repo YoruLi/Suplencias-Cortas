@@ -18,7 +18,6 @@ export const update = async (data: Teacher, id: string) => {
             error: null,
         };
     } catch (error) {
-        console.log(error);
         return {
             data: null,
             error: getErrorMessage(error),

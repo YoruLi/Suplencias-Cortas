@@ -33,7 +33,7 @@ const schema = z.object({
 export default function EditTeacherDialog({ teacher }: { teacher: Teacher }) {
     const updateTeacher = async data => {
         const { error } = await update(data, teacher.idDocentes);
-        console.log(error);
+
         if (error) {
             toast.error(error);
         } else {

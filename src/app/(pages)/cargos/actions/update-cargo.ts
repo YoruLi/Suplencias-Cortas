@@ -2,8 +2,9 @@
 import { fetcher } from "@/utils/fetch-url";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { revalidatePath } from "next/cache";
+import { FieldValues } from "react-hook-form";
 
-export const updateCargos = async (data: FormData, cargo: Cargo) => {
+export const updateCargos = async (data: FieldValues, cargo: Cargo) => {
     const cargosUpdateData = {
         ...data,
     };

@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 import { Label } from "../../../../components/ui/label";
 
@@ -13,7 +13,7 @@ import { getCursos } from "../../cursos/api/get-cursos";
 import { SelectItems } from "../../../../components/ui/select-items";
 import { Select, SelectItem } from "../../../../components/ui/select";
 import { AutoCompleteField } from "../../../../components/elements/auto-complete-field";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { MenuItem } from "@mui/material";
 import { stateAsignation } from "@/utils/utils";
 import { CalendarDemo } from "@/components/elements/calendar";
@@ -40,23 +40,23 @@ export function EditTeacherPosition({ cargo }: { cargo: CargoResponse }) {
         control,
         formState: { errors },
     } = useForm();
-    React.useEffect(() => {
-        const fetchData = async () => {
-            const [materiasResult, cursosResult] = await Promise.allSettled([getMateriasDocente(cargo.docenteId), getCursos()]);
-            const materias = materiasResult.status === "fulfilled" ? materiasResult.value : [];
-            const cursos = cursosResult.status === "fulfilled" ? cursosResult.value : [];
-            return {
-                materias,
-                cursos,
-            };
-        };
 
-        fetchData().then(d => {
-            const { materias, cursos } = d;
-            setMaterias(materias);
-            setCursos(cursos);
-        });
+    const fetchData = React.useCallback(async () => {
+        const [signaturesResult, coursessResult] = await Promise.allSettled([getMateriasDocente(cargo.docenteId), getCursos()]);
+        const signatures = signaturesResult.status === "fulfilled" ? signaturesResult.value : [];
+        const courses = coursessResult.status === "fulfilled" ? coursessResult.value : [];
+
+        return { signatures, courses };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    React.useEffect(() => {
+        fetchData().then(d => {
+            const { signatures, courses } = d;
+            setMaterias(signatures);
+            setCursos(courses);
+        });
+    }, [fetchData]);
 
     const fields = [
         {
@@ -112,7 +112,7 @@ export function EditTeacherPosition({ cargo }: { cargo: CargoResponse }) {
         },
     ];
 
-    const submit = async data => {
+    const submit: SubmitHandler<FieldValues> = async data => {
         const { error } = await updateCargos(data, cargo);
         if (error) {
             toast.error(JSON.parse(error).error);

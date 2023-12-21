@@ -1,8 +1,9 @@
 "use server";
 import { conn } from "@/libs/mysql/db";
+import { plainObject } from "@/utils/utils";
 
 export const getTotalTeachersPerMonth = async ({ dashboard }: { dashboard: string }) => {
-    const result = await conn.query(`
+    const results: DataPerMonth[] = await conn.query(`
     SELECT 
             month,
             COUNT(${dashboard}.createdAt) as total
@@ -18,5 +19,5 @@ export const getTotalTeachersPerMonth = async ({ dashboard }: { dashboard: strin
             Meses.month ASC;
        `);
 
-    return result;
+    return plainObject(results);
 };

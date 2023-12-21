@@ -22,6 +22,7 @@ import { Button } from "./button";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { DataTablePagination } from "./data-table-pagination";
 import { cn } from "@/utils/cn";
+import Search from "../search/search";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -31,7 +32,9 @@ interface DataTableProps<TData, TValue> {
     searchBar?: boolean;
     currentPage: number;
     pagination?: boolean;
+    totalPages?: number;
     ShowMobile: any;
+    placeholder?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -42,6 +45,8 @@ export function DataTable<TData, TValue>({
     searchBar = false,
     currentPage,
     pagination = false,
+    totalPages,
+    placeholder,
     ShowMobile,
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -68,25 +73,13 @@ export function DataTable<TData, TValue>({
             columnFilters,
         },
     });
-    const isFiltered = table.getState().columnFilters.length > 0;
 
     return (
         <div className={cn(className)}>
             <div className="flex justify-between items-center">
                 {searchBar ? (
                     <div className="flex items-center py-4">
-                        <Input
-                            placeholder="Filtrado por nombre..."
-                            value={(table.getColumn("nombreCompleto")?.getFilterValue() as string) ?? ""}
-                            onChange={event => table.getColumn("nombreCompleto")?.setFilterValue(event.target.value)}
-                            className="max-w-sm !outline-none !focus:outline-none !ring-0 !ring-offset-0"
-                        />
-
-                        {isFiltered && (
-                            <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
-                                Borrar
-                            </Button>
-                        )}
+                        <Search placeholder={placeholder} />
                     </div>
                 ) : null}
 
@@ -133,7 +126,7 @@ export function DataTable<TData, TValue>({
 
             {ShowMobile && <ShowMobile table={table} columns={columns} />}
 
-            {pagination ? <DataTablePagination table={table} currentPage={currentPage} /> : null}
+            {pagination ? <DataTablePagination table={table} currentPage={currentPage} totalPages={totalPages} /> : null}
         </div>
     );
 }

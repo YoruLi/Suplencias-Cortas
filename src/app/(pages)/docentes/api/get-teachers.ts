@@ -1,22 +1,17 @@
 "use server";
 
 import { conn } from "@/libs/mysql/db";
+import { fetcher } from "@/utils/fetch-url";
+import { plainObject } from "@/utils/utils";
 
 import { revalidatePath } from "next/cache";
 
 export const getTeachers = async ({ query }: { query?: string | null }): Promise<Teacher[]> => {
-    let url;
-
-    if (typeof query === "string" || query === undefined) {
-        url = `http://localhost:3000/api/docentes?query=${query}`;
-    }
-
     try {
-        const res = await fetch(url, {
-            cache: "no-store",
+        const result = await fetcher({
+            fetchUrl: `docentes?query=${query}`,
+            method: "GET",
         });
-
-        const result = await res.json();
 
         return result;
     } catch (error) {
@@ -24,18 +19,43 @@ export const getTeachers = async ({ query }: { query?: string | null }): Promise
     }
 };
 
-export const getPaginationTeachers = async ({ currentPage, pages }: { currentPage: number; pages: number }): Promise<Teacher[]> => {
+export const getPaginationTeachers = async ({ query, currentPage, pages }: { query?: string; currentPage: number; pages: number }): Promise<Teacher[]> => {
     try {
         const offset = (Number(currentPage) - 1) * Number(pages);
-        const teachers = await conn.query(`
+        const teachers: Teacher[] = await conn.query(`
             SELECT *
             FROM docentes
+            WHERE
+            docentes.nombreCompleto LIKE "%${query}%" OR
+            docentes.email LIKE "%${query}%" OR
+            docentes.localidad LIKE "%${query}%"
             ORDER BY docentes.createdAt DESC
             LIMIT ${pages.toString()} OFFSET ${offset.toString()};
             `);
         revalidatePath("/docentes");
-        return teachers;
+        return plainObject(teachers);
     } catch (error) {
         return [];
     }
 };
+
+export async function fetchTeachersPages({ query }: { query: string }) {
+    try {
+        const count = await conn.query(`SELECT COUNT(*) as total
+    FROM docentes
+    WHERE
+      docentes.nombreCompleto LIKE "%${query}%" OR
+      docentes.email LIKE "%${query}%" OR
+      docentes.localidad LIKE "%${query}%"
+  `);
+        const results = JSON.stringify(count);
+        const json: TotalPages[] = JSON.parse(results);
+
+        const totalPages = Math.ceil(Number(json[0].total) / 10);
+
+        return totalPages;
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch total number of teachers.");
+    }
+}

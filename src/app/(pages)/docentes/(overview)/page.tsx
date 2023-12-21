@@ -9,17 +9,19 @@ export default async function page({
 }: {
     searchParams: {
         currentPage?: string;
+        query?: string;
         pages?: string;
     };
 }) {
     const pages = Number(searchParams?.pages) || 10;
+    const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.currentPage) || 1;
     return (
         <div className=" h-full w-full  flex flex-col gap-4  relative overflow-hidden">
             <Title className=" text-4xl font-normal text-main">Docentes</Title>
 
             <Suspense key={currentPage} fallback={<TableLoader />}>
-                <TeachersTable currentPage={currentPage} pages={pages} />
+                <TeachersTable currentPage={currentPage} pages={pages} query={query} />
             </Suspense>
         </div>
     );

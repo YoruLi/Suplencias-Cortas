@@ -8,7 +8,7 @@ import { getJwtSecretKey } from "@/data/getSession";
 export async function POST(req: Request, res: NextApiResponse) {
     const data = await req.json();
     const { username, password } = data;
-
+    console.log(data);
     try {
         if (!username || !password) {
             return NextResponse.json({

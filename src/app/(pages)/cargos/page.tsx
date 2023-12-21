@@ -8,10 +8,12 @@ export default async function page({
     searchParams,
 }: {
     searchParams: {
+        query: string;
         currentPage?: string;
         pages?: string;
     };
 }) {
+    const query = searchParams.query ?? "";
     const pages = Number(searchParams?.pages) || 10;
     const currentPage = Number(searchParams?.currentPage) || 1;
 
@@ -20,7 +22,7 @@ export default async function page({
             <Title className=" text-4xl font-normal text-main">Cargos</Title>
 
             <React.Suspense key={currentPage + pages} fallback={<TableLoader />}>
-                <Table currentPage={currentPage} pages={pages} />
+                <Table currentPage={currentPage} pages={pages} query={query} />
             </React.Suspense>
         </div>
     );

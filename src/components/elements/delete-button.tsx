@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/button";
-import { deleteAction } from "../../../actions/delete-action";
+import { deleteAction } from "../../utils/actions/delete-action";
 import toast from "react-hot-toast";
 
 export default function DeleteButton({ id, entity, children }: { id: string; entity: string; children?: React.ReactNode }) {

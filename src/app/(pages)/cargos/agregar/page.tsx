@@ -14,8 +14,9 @@ export default async function Page({
         docente: string;
     };
 }) {
-    const docente = searchParams.docente ?? null;
+    const docente = searchParams.docente ?? "";
     const [coursesPromise, signaturesPromise] = await Promise.allSettled([getCursos(), getMateriasDocente(docente)]);
+
     const courses = coursesPromise.status === "fulfilled" ? coursesPromise.value : [];
     const signature = signaturesPromise.status === "fulfilled" ? signaturesPromise.value : [];
 

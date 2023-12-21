@@ -1,4 +1,5 @@
 import { conn } from "@/libs/mysql/db";
+import { HttpNotFound, HttpResponse } from "@/utils/errors";
 import { teacherValidation } from "@/validation/zod";
 import { NextResponse } from "next/server";
 
@@ -7,7 +8,11 @@ export async function GET(req: Request) {
     const query = searchParams.get("query") as string;
     if (typeof query === "string" && query.length > 0) {
         try {
-            const teachers = await conn.query(`SELECT * FROM Docentes WHERE nombreCompleto LIKE '%${query}%' `);
+            const teachers: Teacher[] = await conn.query(`SELECT * FROM Docentes WHERE nombreCompleto LIKE '%${query}%' OR Docentes.email  `);
+
+            if (teachers.length === 0) {
+                throw new HttpNotFound();
+            }
             await conn.end();
 
             return NextResponse.json(teachers);
@@ -24,6 +29,9 @@ export async function GET(req: Request) {
             await conn.end();
             return NextResponse.json(teachers);
         } catch (error) {
+            if (error instanceof HttpNotFound) {
+                return new HttpResponse().NotFound();
+            }
             return NextResponse.json(error, { status: 500 });
         }
     }
@@ -31,7 +39,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
     const data = await req.json();
-    console.log(data);
+
     const { name, lastname, email, tel, dni, dir, nac, antiguedadEsc, antiguedadDoc, localidad } = data;
 
     const fullname = `${name} ${lastname}`;

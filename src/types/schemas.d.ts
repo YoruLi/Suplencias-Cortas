@@ -14,7 +14,12 @@ type Teacher = {
     dni: string;
     score: string;
 };
-
+type Curso = {
+    id: string;
+    nombre: string;
+    modalidadId: string;
+    cicloLectivo: string;
+};
 type Cargo = {
     idCargos: string;
     docenteId: string;
@@ -37,16 +42,25 @@ interface CargoResponse extends Cargo {
     nombreDocente: string;
     nombreCurso: string;
 }
-type Curso = {
-    id: string;
-    nombre: string;
-    modalidadId: string;
-    cicloLectivo: string;
-};
 
 type Materia = {
     codigoMateria: string;
     nombre: string;
     año: string;
     planDeEstudioId: string;
+};
+
+type DataPerMonth = {
+    month: number;
+    total: number;
+};
+
+type Bitacora = {
+    id?: string;
+    descripcion: string;
+    resolucion: string;
+};
+
+type TotalPages = {
+    total: string;
 };

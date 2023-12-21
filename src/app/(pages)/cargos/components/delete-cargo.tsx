@@ -10,7 +10,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { deleteAction } from "../../../../../actions/delete-action";
+import { deleteAction } from "../../../../utils/actions/delete-action";
 import toast from "react-hot-toast";
 import { MenuItem } from "@mui/material";
 

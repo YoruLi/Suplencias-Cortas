@@ -1,43 +1,41 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Input } from "../ui/input";
 import TeachersList from "./teachers-list";
+import { debounce } from "@mui/material";
 
-export default function Search({ search, teachers }: { search: string; teachers: any }) {
-    const [text, setText] = useState("");
-    const router = useRouter();
+export default function Search({ placeholder }: { placeholder: string }) {
+    const { replace } = useRouter();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const teacherSelected = searchParams.get("docente")?.split("/")[1];
-    console.log(teacherSelected);
-    useEffect(() => {
-        const currentSearchParams = new URLSearchParams(searchParams);
-        if (text.length <= 0) {
-            currentSearchParams.delete("search");
-        } else {
-            currentSearchParams.set("search", text);
-        }
-        const newSearch = currentSearchParams.toString();
-        const newUrl = `${search}${newSearch ? `?${newSearch}` : ""}`;
+    const handleSearch = debounce((term: string) => {
+        const params = new URLSearchParams(searchParams);
 
-        router.replace(newUrl);
-    }, [text]);
+        if (term) {
+            params.set("query", term);
+        } else {
+            params.delete("query");
+        }
+
+        replace(`${pathname}?${params.toString()}`);
+    }, 300);
 
     return (
         <>
             <search>
                 <Input
                     type="search"
-                    placeholder="Buscar docente..."
+                    placeholder={placeholder}
                     className="!outline-none !focus:outline-none !ring-0 !ring-offset-0 relative"
-                    value={teacherSelected ? teacherSelected : text}
-                    onChange={e => setText(e.target.value)}
+                    defaultValue={searchParams.get("query")?.toString()}
+                    onChange={e => {
+                        handleSearch(e.target.value);
+                    }}
                 />
             </search>
-
-            <TeachersList teachers={teachers} />
         </>
     );
 }

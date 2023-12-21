@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from "../../../../components/ui/label";
 import { Input } from "../../../../components/ui/input";
 
-import { editTeacher } from "../../../../../actions/update-teacher";
+import { editTeacher } from "../../../../utils/actions/update-teacher";
 
 export default function EditTeacherPosition({ cargo }: { cargo: Cargo }) {
     return (

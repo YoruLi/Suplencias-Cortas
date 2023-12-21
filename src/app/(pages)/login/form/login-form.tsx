@@ -5,7 +5,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { login } from "../../../../../actions/handle-login";
+import { login } from "../../../../utils/actions/handle-login";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { Button } from "@/components/ui/button";

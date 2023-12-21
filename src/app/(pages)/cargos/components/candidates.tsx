@@ -12,6 +12,8 @@ import toast from "react-hot-toast";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { updateCargos, updateCargoToCandidate } from "../actions/update-cargo";
 import { MobileTable } from "./mobile-table-candidates";
+import { fetcher } from "@/utils/fetch-url";
+import { plainObject } from "@/utils/utils";
 
 type CandidatesSchema = {
     candidates: boolean;
@@ -27,12 +29,10 @@ export default function Candidates({ cargoId }: { cargoId: string }) {
     useEffect(() => {
         const getCandidatos = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/candidates?cargoId=${cargoId}`, {
-                    cache: "no-store",
+                const result = await fetcher({
+                    fetchUrl: `candidates?cargoId=${cargoId}`,
                     method: "GET",
                 });
-
-                const result = await res.json();
 
                 return result;
             } catch (error) {

@@ -1,6 +1,6 @@
 import { conn } from "@/libs/mysql/db";
 import { ER_PARSE_ERROR, HttpResponse, HttpStatus } from "@/utils/errors";
-import { getErrorMessage } from "@/utils/get-error-message";
+
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
@@ -10,7 +10,6 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
         await conn.end();
         return NextResponse.json(result);
     } catch (error: any) {
-        console.log(error);
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -59,9 +58,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         ...(data.email && { email: data.email }),
         ...(data.tel && { tel: data.tel }),
         ...(data.dni && { dni: data.dni }),
+        ...(data.dir && { dir: data.dir }),
         ...(data.localidad && { localidad: data.localidad }),
     };
-    console.log(objectData);
+
     if (Object.keys(data).length === 0) {
         throw new ER_PARSE_ERROR("Verifica los datos ingresados");
     }

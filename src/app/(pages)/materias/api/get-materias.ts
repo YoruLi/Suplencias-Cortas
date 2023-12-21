@@ -1,28 +1,28 @@
 "use server";
-import { getErrorMessage } from "@/utils/get-error-message";
-import toast from "react-hot-toast";
+
 import { conn } from "@/libs/mysql/db";
+import { fetcher } from "@/utils/fetch-url";
+import { plainObject } from "@/utils/utils";
 
 export const getMaterias = async (): Promise<Materia[] | []> => {
     try {
-        const res = await fetch(`http://localhost:3000/api/materias`, {
-            cache: "no-store",
+        const results = await fetcher({
+            fetchUrl: "materias",
             method: "GET",
         });
 
-        const result = await res.json();
-        return result;
+        return results;
     } catch (error) {
         return [];
     }
 };
 
-export const getMateriasDocente = async (docenteId: string) => {
+export const getMateriasDocente = async (docenteId: string): Promise<Materia[] | []> => {
     if (!docenteId) {
         return [];
     }
     try {
-        const result = await conn.query(`
+        const result: Materia[] = await conn.query(`
         SELECT oblea.materias, materias.*
         FROM oblea
         JOIN docentes ON oblea.docenteId = docentes.idDocentes
@@ -32,8 +32,8 @@ export const getMateriasDocente = async (docenteId: string) => {
 `);
 
         await conn.end();
-        return result;
+        return plainObject(result);
     } catch (error) {
-        return toast.error(getErrorMessage(error));
+        return [];
     }
 };

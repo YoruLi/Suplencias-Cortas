@@ -7,6 +7,7 @@ interface MenuButtonProps {
     selectedItem: (href: string) => boolean;
     href?: string;
     title: string;
+    blank?: boolean;
     children?: React.ReactNode;
     className?: string;
     onClick?: () => void;
@@ -20,7 +21,7 @@ interface TagProps extends Omit<MenuButtonProps, "k"> {}
 
 export default function MenuButton(props: MenuButtonProps) {
     const Tag = (tagProps: TagProps) => {
-        return tagProps.href ? <Link {...tagProps} href={tagProps.href} prefetch={false} /> : <button {...tagProps} />;
+        return tagProps.href ? <Link {...tagProps} href={tagProps.href} prefetch={false} target={tagProps.blank ? "_blank" : "_self"} /> : <button {...tagProps} />;
     };
 
     return (

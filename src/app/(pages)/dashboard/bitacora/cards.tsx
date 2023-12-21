@@ -6,14 +6,18 @@ import Icon from "../../../../components/ui/icon";
 import { Card } from "../../../../components/ui/card";
 import Link from "next/link";
 
+type CardsData = {
+    category: string;
+    quantity: number;
+};
 export async function getTotalData() {
     const results = await conn.query(
         `
-  SELECT 'docentes' AS teachers, COUNT(*) AS cantidad_docentes FROM docentes
+  SELECT 'docentes' AS category, COUNT(*) AS quantity FROM docentes
   UNION
-  SELECT 'materias' AS signature, COUNT(*) AS cantidad_materias FROM materias
+  SELECT 'materias' AS category, COUNT(*) AS quantity FROM materias
   UNION
-  SELECT 'cursos' AS courses, COUNT(*) AS cantidad_cursos FROM cursos
+  SELECT 'cursos' AS category, COUNT(*) AS quantity FROM cursos
 `
     );
 
@@ -22,11 +26,11 @@ export async function getTotalData() {
         materias: svgs.signatureIcon.path,
         cursos: svgs.courseIcon.path,
     };
-
-    return results.map(data => ({
-        table: data.teachers,
-        cantidad: data.cantidad_docentes,
-        icon: iconMap[data.teachers],
+    const data = results as CardsData[];
+    return data.map(data => ({
+        table: data.category,
+        cantidad: data.quantity,
+        icon: iconMap[data.category as keyof typeof iconMap],
     }));
 }
 

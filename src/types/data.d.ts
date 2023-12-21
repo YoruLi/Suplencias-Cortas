@@ -16,3 +16,12 @@ type FormTypes = {
 };
 
 type FormTypesProps = Omit<FormTypes, "step" | "totalSteps">;
+
+interface FormTeacherPositionValues {
+    docentes: string;
+    cursoId: string;
+    codigoMateria: string;
+    hours: any;
+    days: any;
+    state: string;
+}
